@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MG-Projekt.UI", "MG-Projekt.UI.csproj", "{31F7A643-0EE5-40F7-941B-AB5B402514C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MG-Projekt.BOL", "..\MG-Projekt.BOL\MG-Projekt.BOL.csproj", "{7BD273DA-438E-443B-8DF9-8A929C9C2F91}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{31F7A643-0EE5-40F7-941B-AB5B402514C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31F7A643-0EE5-40F7-941B-AB5B402514C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31F7A643-0EE5-40F7-941B-AB5B402514C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31F7A643-0EE5-40F7-941B-AB5B402514C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BD273DA-438E-443B-8DF9-8A929C9C2F91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BD273DA-438E-443B-8DF9-8A929C9C2F91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD273DA-438E-443B-8DF9-8A929C9C2F91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BD273DA-438E-443B-8DF9-8A929C9C2F91}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
