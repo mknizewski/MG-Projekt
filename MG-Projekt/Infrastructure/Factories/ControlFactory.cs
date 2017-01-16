@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using MG_Projekt.BOL.Resources.Section;
+using System.Windows.Controls;
 
 namespace MG_Projekt.Infrastructure.Factories
 {
@@ -17,7 +18,7 @@ namespace MG_Projekt.Infrastructure.Factories
             switch (controlType)
             {
                 case ControlsType.Introduction:
-                    return string.Empty;
+                    return SectionDictionary.Introduction;
                 default:
                     return string.Empty;
             }
