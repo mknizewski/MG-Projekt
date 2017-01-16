@@ -8,7 +8,7 @@ namespace MG_Projekt
     public partial class MainWindow : Window
     {
         private ControlsType _currentControl;
-        public CheckIfUserCanGo CheckingMethod;
+        public CheckIfUserCanGo CheckingSectionMethod;
 
         private const int SwitchModule = 1;
 
@@ -48,7 +48,7 @@ namespace MG_Projekt
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckingMethod())
+            if (CheckingSectionMethod())
                 SwitchView(ToSection.Next);
         }
 

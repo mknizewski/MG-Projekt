@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MG_Projekt"
         mc:Ignorable="d"
-        Title="Metody globalizacji - Projekt" Height="550" Width="725" Background="Gray">
+        Title="Metody globalizacji - Projekt" Height="550" Width="725" Background="Gray"
+        Icon="Images/icon.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -15,9 +16,9 @@
             <ContentControl x:Name="DynamicControl"></ContentControl>
         </Grid>
         <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button x:Name="PervButton" Cursor="Hand" Click="PervButton_Click">Poprzedni</Button>
+            <Button x:Name="PervButton" Width="100" Cursor="Hand" Click="PervButton_Click">Poprzedni</Button>
             <Label x:Name="SectionLabel" FontSize="24" FontWeight="Black">Sekcja</Label>
-            <Button x:Name="NextButton" Cursor="Hand" Click="NextButton_Click">Następny</Button>
+            <Button x:Name="NextButton" Width="100" Cursor="Hand" Click="NextButton_Click">Następny</Button>
         </StackPanel>
     </Grid>
 </Window>

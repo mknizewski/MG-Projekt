@@ -3,6 +3,7 @@
     public interface IControl
     {
         bool CheckPermission();
+
         void LinkToMethod();
     }
 }

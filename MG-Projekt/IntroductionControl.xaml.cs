@@ -1,7 +1,6 @@
 ﻿using MG_Projekt.BOL.Interfaces;
-using System.Windows.Controls;
 using MG_Projekt.Infrastructure.Factories;
-using System.Windows;
+using System.Windows.Controls;
 
 namespace MG_Projekt
 {
@@ -19,7 +18,7 @@ namespace MG_Projekt
         public void LinkToMethod()
         {
             MainWindow mainWindow = ControlFactory.GetMainWindowInstance();
-            mainWindow.CheckingMethod = CheckPermission;
+            mainWindow.CheckingSectionMethod = CheckPermission;
         }
 
         public bool CheckPermission()

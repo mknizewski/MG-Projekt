@@ -20,12 +20,16 @@ namespace MG_Projekt.Infrastructure.Factories
             {
                 case ControlsType.Introduction:
                     return GetControl<IntroductionControl>();
+
                 case ControlsType.Problem:
                     return GetControl<ProblemControl>();
+
                 case ControlsType.Parameters:
                     return GetControl<ParametersControl>();
+
                 case ControlsType.Alghoritm:
                     return GetControl<AlgorithmControl>();
+
                 default:
                     return null;
             }
@@ -42,12 +46,16 @@ namespace MG_Projekt.Infrastructure.Factories
             {
                 case ControlsType.Introduction:
                     return SectionDictionary.Introduction;
+
                 case ControlsType.Problem:
                     return SectionDictionary.Problem;
+
                 case ControlsType.Parameters:
                     return SectionDictionary.Parameters;
+
                 case ControlsType.Alghoritm:
                     return SectionDictionary.Algorithm;
+
                 default:
                     return string.Empty;
             }
