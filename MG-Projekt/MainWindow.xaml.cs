@@ -27,6 +27,17 @@ namespace MG_Projekt
         private void CheckSection()
         {
             this.PervButton.IsEnabled = _currentControl != ControlsType.Introduction;
+            this.NextButton.IsEnabled = _currentControl != ControlsType.Alghoritm;
+        }
+
+        private void SwitchView()
+        {
+
+        }
+
+        private bool CanGoToOtherSection()
+        {
+            return false;
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)

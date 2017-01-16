@@ -61,11 +61,38 @@ namespace MG_Projekt.BOL.Resources.Section {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Algorytm.
+        /// </summary>
+        internal static string Algorithm {
+            get {
+                return ResourceManager.GetString("Algorithm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wstęp.
         /// </summary>
         internal static string Introduction {
             get {
                 return ResourceManager.GetString("Introduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parametry.
+        /// </summary>
+        internal static string Parameters {
+            get {
+                return ResourceManager.GetString("Parameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geneza problemu.
+        /// </summary>
+        internal static string Problem {
+            get {
+                return ResourceManager.GetString("Problem", resourceCulture);
             }
         }
     }

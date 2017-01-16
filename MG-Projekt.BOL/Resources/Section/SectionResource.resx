@@ -117,7 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Algorithm" xml:space="preserve">
+    <value>Algorytm</value>
+  </data>
   <data name="Introduction" xml:space="preserve">
     <value>Wstęp</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Parametry</value>
+  </data>
+  <data name="Problem" xml:space="preserve">
+    <value>Geneza problemu</value>
   </data>
 </root>

@@ -14,5 +14,29 @@ namespace MG_Projekt.BOL.Resources.Section
                 return _sectionResource.GetString(nameof(Introduction));
             }
         }
+
+        public static string Problem
+        {
+            get
+            {
+                return _sectionResource.GetString(nameof(Problem));
+            }
+        }
+
+        public static string Parameters
+        {
+            get
+            {
+                return _sectionResource.GetString(nameof(Parameters));
+            }
+        }
+
+        public static string Algorithm
+        {
+            get
+            {
+                return _sectionResource.GetString(nameof(Algorithm));
+            }
+        }
     }
 }
