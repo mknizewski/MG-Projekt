@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MG_Projekt"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Metody globalizacji - Projekt" Height="350" Width="525">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="15 15 15 15">
+            <ContentControl x:Name="DynamicControl"></ContentControl>
+        </Grid>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button x:Name="PervButton">Poprzedni</Button>
+            <Label x:Name="SectionLabel">Sekcja</Label>
+            <Button x:Name="NextButton">Następny</Button>
+        </StackPanel>
     </Grid>
 </Window>
