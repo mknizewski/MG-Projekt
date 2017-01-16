@@ -8,16 +8,35 @@ namespace MG_Projekt
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ControlsType _currentControl;
+
         public MainWindow()
         {
             InitializeComponent();
             InitalizeView();
+            CheckSection();
         }
 
         private void InitalizeView()
         {
-            this.DynamicControl = ControlFactory.GetControl<IntroductionControl>();
+            this.DynamicControl.Content = ControlFactory.GetControl<IntroductionControl>();
             this.SectionLabel.Content = ControlFactory.GetSection(ControlsType.Introduction);
+            this._currentControl = ControlsType.Introduction;
+        }
+
+        private void CheckSection()
+        {
+            this.PervButton.IsEnabled = _currentControl != ControlsType.Introduction;
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PervButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
