@@ -1,4 +1,5 @@
-﻿using MG_Projekt.BOL.Resources.Section;
+﻿using MG_Projekt.BOL.Interfaces;
+using MG_Projekt.BOL.Resources.Section;
 using System.Windows.Controls;
 
 namespace MG_Projekt.Infrastructure.Factories
@@ -8,9 +9,31 @@ namespace MG_Projekt.Infrastructure.Factories
     /// </summary>
     public static class ControlFactory
     {
-        public static T GetControl<T>() where T : Control, new()
+        public static T GetControl<T>() where T : IControl, new()
         {
             return new T();
+        }
+
+        public static Control GetControlByEnum(ControlsType controlsType)
+        {
+            switch (controlsType)
+            {
+                case ControlsType.Introduction:
+                    return GetControl<IntroductionControl>();
+                case ControlsType.Problem:
+                    return GetControl<ProblemControl>();
+                case ControlsType.Parameters:
+                    return GetControl<ParametersControl>();
+                case ControlsType.Alghoritm:
+                    return GetControl<AlgorithmControl>();
+                default:
+                    return null;
+            }
+        }
+
+        public static MainWindow GetMainWindowInstance()
+        {
+            return (MainWindow)App.Current.MainWindow;
         }
 
         public static string GetSection(ControlsType controlType)

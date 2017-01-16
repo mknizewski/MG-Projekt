@@ -3,12 +3,14 @@ using System.Windows;
 
 namespace MG_Projekt
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    public delegate bool CheckIfUserCanGo();
+
     public partial class MainWindow : Window
     {
         private ControlsType _currentControl;
+        public CheckIfUserCanGo CheckingMethod;
+
+        private const int SwitchModule = 1;
 
         public MainWindow()
         {
@@ -19,7 +21,9 @@ namespace MG_Projekt
 
         private void InitalizeView()
         {
-            this.DynamicControl.Content = ControlFactory.GetControl<IntroductionControl>();
+            IntroductionControl control = ControlFactory.GetControl<IntroductionControl>();
+
+            this.DynamicControl.Content = control;
             this.SectionLabel.Content = ControlFactory.GetSection(ControlsType.Introduction);
             this._currentControl = ControlsType.Introduction;
         }
@@ -30,24 +34,33 @@ namespace MG_Projekt
             this.NextButton.IsEnabled = _currentControl != ControlsType.Alghoritm;
         }
 
-        private void SwitchView()
+        private void SwitchView(ToSection toSection)
         {
+            if (toSection == ToSection.Next)
+                _currentControl = (ControlsType)(_currentControl + SwitchModule);
+            else
+                _currentControl = (ControlsType)(_currentControl - SwitchModule);
 
-        }
-
-        private bool CanGoToOtherSection()
-        {
-            return false;
+            this.DynamicControl.Content = ControlFactory.GetControlByEnum(_currentControl);
+            this.SectionLabel.Content = ControlFactory.GetSection(_currentControl);
+            CheckSection();
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (CheckingMethod())
+                SwitchView(ToSection.Next);
         }
 
         private void PervButton_Click(object sender, RoutedEventArgs e)
         {
-
+            SwitchView(ToSection.Perv);
         }
+    }
+
+    public enum ToSection
+    {
+        Next,
+        Perv
     }
 }
