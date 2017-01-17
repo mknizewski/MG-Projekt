@@ -1,0 +1,9 @@
+﻿Jan Kowalski jest właścicielem firmy Transport S.A, dysponuje niewielkimi środkami, oraz kilkoma ciężarówkami do przewozu towarów. Ostatnio dzięki skutecznej strategii marketingowej udało mu się pozyskać wielu nowych dostawców i niestety jest ich tak dużo że nie jest w stanie wszystkiego ogarnąć. Wcześniej, kiedy miał niewiele odbiorców, swoją strategię opracowywał na piechotę, teraz ze względu na złożoność problemu nie jest w stanie tego dokonać. Zadaniem jest pomóc panu Kowalskiemu i zaproponować mu jak najlepsze rozwiązanie danego problemu.
+
+Zanim przejdziemy do rozwiązania problemu należy podać takie dane jak:
+- koszt benzyny
+- ilość ciężarówek
+- ilość spalonego paliwa na 100 km
+- współrzędne punktów dystrybucji
+
+Wyniki są prezentowane na wykresie oraz tabeli.

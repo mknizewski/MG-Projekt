@@ -16,7 +16,7 @@
                 <Label FontSize="20" FontWeight="Black">Parametry</Label>
                 <Label FontSize="16">- jednostkowy koszt przewozu</Label>
                 <Label FontSize="20" FontWeight="Black">Założenia metody</Label>
-                <Label FontSize="16">- przewożony jest jednorodny punkt</Label>
+                <Label FontSize="16">- przewożony jest jednorodny produkt</Label>
                 <Label FontSize="16">- każda trasa przewozu posiada nieograniczoną przepustowość</Label>
                 <Label FontSize="20" FontWeight="Black">Ogólne sformułowanie funkcji celu</Label>
                 <Label FontSize="16">- minimalizacja całkowitych kosztów transportu</Label>

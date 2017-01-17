@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IControl.cs" />
+    <Compile Include="Models\DeliveryCords.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Factory\ResourceFactory.cs" />
     <Compile Include="Resources\Section\SectionDictionary.cs" />
