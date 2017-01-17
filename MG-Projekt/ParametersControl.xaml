@@ -79,18 +79,32 @@
                         <TextBlock IsEnabled="False" TextWrapping="WrapWithOverflow"></TextBlock>
                     </GroupBox>
                 </StackPanel>
-                <GroupBox Grid.Column="1" Header="Współrzędne" Margin="5 5 5 5">
-                    <StackPanel Orientation="Vertical">
-                        <ListBox x:Name="CordListBox" Grid.Column="1" MinHeight="200" Margin="5 5 5 5">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Margin="2 2 2 2" Text="{Binding DispCords}"></TextBlock>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <Button VerticalAlignment="Bottom" Cursor="Hand" Margin="5 5 5 5">Oblicz</Button>
-                    </StackPanel>
-                </GroupBox>
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <GroupBox Header="Współrzędne" Margin="5 5 5 0">
+                        <StackPanel Orientation="Vertical">
+                            <ListBox x:Name="CordListBox" Grid.Column="1" MinHeight="237" Margin="5 5 5 5">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Margin="2 2 2 2" Text="{Binding DispCords}"></TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Punkt nadawczy" Margin="5 0 5 5">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <Label MinWidth="5">X</Label>
+                                <TextBox  MinWidth="80" Margin="5 5 5 5"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label MinWidth="5">Y</Label>
+                                <TextBox MinWidth="80" Margin="5 5 5 5"></TextBox>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <Button VerticalAlignment="Bottom" Cursor="Hand" Margin="5 5 5 5">Oblicz</Button>
+                </StackPanel>
             </Grid>
         </ScrollViewer>
     </Grid>

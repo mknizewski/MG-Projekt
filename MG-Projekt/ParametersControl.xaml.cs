@@ -20,12 +20,6 @@ namespace MG_Projekt
 
         private List<DeliveryCords> _deliveryCordsList;
 
-        public IList<DeliveryCords> DeliveryCords
-        {
-            get
-            { return _deliveryCordsList; }
-        }
-
         public ParametersControl()
         {
             InitializeComponent();
