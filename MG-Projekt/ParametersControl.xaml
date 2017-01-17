@@ -65,6 +65,7 @@
                                 <TextBox x:Name="YCords" MinWidth="100" Margin="5 5 5 5"></TextBox>
                             </StackPanel>
                             <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+                                <Button x:Name="FromFileCord" Click="FromFileCord_Click" Cursor="Hand" MinWidth="50" Margin="0 0 5 0">Z pliku</Button>
                                 <Button x:Name="DeleteCord" Click="DeleteCord_Click" Cursor="Hand" MinWidth="50" Margin="0 0 5 0">Usuń</Button>
                                 <Button x:Name="AddCord" Click="AddCord_Click" Cursor="Hand" MinWidth="50">Dodaj</Button>
                             </StackPanel>
@@ -72,7 +73,6 @@
                     </GroupBox>
                     <GroupBox Header="Koszty">
                         <DataGrid Visibility="Hidden">
-                            
                         </DataGrid>
                     </GroupBox>
                     <GroupBox Header="Funkcja celu">
@@ -81,7 +81,7 @@
                 </StackPanel>
                 <GroupBox Grid.Column="1" Header="Współrzędne" Margin="5 5 5 5">
                     <StackPanel Orientation="Vertical">
-                        <ListBox x:Name="CordListBox" Grid.Column="1" MinHeight="200" Margin="5 5 5 5" ItemsSource="{Binding Path=DeliveryCords}">
+                        <ListBox x:Name="CordListBox" Grid.Column="1" MinHeight="200" Margin="5 5 5 5">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Margin="2 2 2 2" Text="{Binding DispCords}"></TextBlock>

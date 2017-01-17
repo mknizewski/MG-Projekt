@@ -1,8 +1,6 @@
 ﻿using MG_Projekt.BOL.Interfaces;
-using MG_Projekt.BOL.Models;
 using MG_Projekt.Infrastructure.Factories;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Controls;
 
