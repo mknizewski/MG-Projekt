@@ -17,22 +17,22 @@
                     <GroupBox Header="Parametry">
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
-                                <Label MinWidth="115">Ilość odbiorców</Label>
-                                <TextBox Margin="5 5 5 5" MinWidth="100"></TextBox>
+                                <Label x:Name="DeliveryCountLabel" MinWidth="115">Ilość odbiorców</Label>
+                                <TextBox x:Name="DeliveryCountTextBox" Margin="5 5 5 5" MinWidth="100"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label MinWidth="115">Cena za 1l benzyny</Label>
-                                <TextBox Margin="5 5 5 5" MinWidth="100"></TextBox>
+                                <Label x:Name="PetrolPriceLabel" MinWidth="115">Cena za 1l benzyny</Label>
+                                <TextBox x:Name="PetrolPriceTextBox" Margin="5 5 5 5" MinWidth="100"></TextBox>
                                 <Label>zł</Label>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label MinWidth="115">Zużycie na 100 km</Label>
-                                <TextBox Margin="5 5 5 5" MinWidth="100"></TextBox>
+                                <Label x:Name="PetrolUsageLabel" MinWidth="115">Zużycie na 100 km</Label>
+                                <TextBox x:Name="PetrolUsageTextBox" Margin="5 5 5 5" MinWidth="100"></TextBox>
                                 <Label>litrów</Label>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label MinWidth="115">Ciężarówki</Label>
-                                <TextBox Margin="5 5 5 5" MinWidth="100"></TextBox>
+                                <Label x:Name="TrucksLabel" MinWidth="115">Ciężarówki</Label>
+                                <TextBox x:Name="TrucksTextBox" Margin="5 5 5 5" MinWidth="100"></TextBox>
                                 <Label>sztuk</Label>
                             </StackPanel>
                         </StackPanel>
@@ -40,16 +40,16 @@
                     <GroupBox Header="Algorytm symulacji wyrzażania">
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
-                                <Label MinWidth="115">Temperatura</Label>
-                                <TextBox MinWidth="100" Margin="5 5 5 5"></TextBox>
+                                <Label x:Name="TemperatureLabel" MinWidth="115">Temperatura</Label>
+                                <TextBox x:Name="TemperatureTextBox" MinWidth="100" Margin="5 5 5 5"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label MinWidth="115">Delta</Label>
-                                <TextBox MinWidth="100" Margin="5 5 5 5"></TextBox>
+                                <Label x:Name="DeltaLabel" MinWidth="115">Delta</Label>
+                                <TextBox x:Name="DeltaTextBox" MinWidth="100" Margin="5 5 5 5"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label MinWidth="115">Warunek stopu</Label>
-                                <TextBox MinWidth="100" Margin="5 5 5 5"></TextBox>
+                                <Label x:Name="IterationLabel" MinWidth="115">Warunek stopu</Label>
+                                <TextBox x:Name="IterationTextBox" MinWidth="100" Margin="5 5 5 5"></TextBox>
                                 <Label>powtórzeń</Label>
                             </StackPanel>
                         </StackPanel>
@@ -72,7 +72,7 @@
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="Koszty">
-                        <DataGrid Visibility="Hidden">
+                        <DataGrid Visibility="Hidden" x:Name="CostDataGrid" ItemsSource="{Binding}">
                         </DataGrid>
                     </GroupBox>
                     <GroupBox Header="Funkcja celu">
@@ -82,7 +82,7 @@
                 <StackPanel Grid.Column="1" Orientation="Vertical">
                     <GroupBox Header="Współrzędne" Margin="5 5 5 0">
                         <StackPanel Orientation="Vertical">
-                            <ListBox x:Name="CordListBox" Grid.Column="1" MinHeight="237" Margin="5 5 5 5">
+                            <ListBox x:Name="CordListBox" Grid.Column="1" MinHeight="209" Margin="5 5 5 5">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Margin="2 2 2 2" Text="{Binding DispCords}"></TextBlock>
@@ -95,15 +95,15 @@
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
                                 <Label MinWidth="5">X</Label>
-                                <TextBox  MinWidth="80" Margin="5 5 5 5"></TextBox>
+                                <TextBox x:Name="SenderPointXTextBox" MinWidth="50" Margin="5 5 5 5"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <Label MinWidth="5">Y</Label>
-                                <TextBox MinWidth="80" Margin="5 5 5 5"></TextBox>
+                                <TextBox x:Name="SenderPointYTextBox" MinWidth="50" Margin="5 5 5 5"></TextBox>
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
-                    <Button VerticalAlignment="Bottom" Cursor="Hand" Margin="5 5 5 5">Oblicz</Button>
+                    <Button x:Name="CalculateButton" Click="CalculateButton_Click" VerticalAlignment="Bottom" Cursor="Hand" Margin="5 5 5 5">Oblicz</Button>
                 </StackPanel>
             </Grid>
         </ScrollViewer>

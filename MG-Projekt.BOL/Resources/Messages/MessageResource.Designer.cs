@@ -95,5 +95,14 @@ namespace MG_Projekt.BOL.Resources.Messages {
                 return ResourceManager.GetString("OpenFileFilter", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pole &apos;{0}&apos; ma nieprawidłowy parametr!.
+        /// </summary>
+        internal static string PersonalizedExceptionMessage {
+            get {
+                return ResourceManager.GetString("PersonalizedExceptionMessage", resourceCulture);
+            }
+        }
     }
 }

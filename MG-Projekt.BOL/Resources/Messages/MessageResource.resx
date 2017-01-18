@@ -129,4 +129,7 @@
   <data name="OpenFileFilter" xml:space="preserve">
     <value>Pliki tekstowe (*.txt)|*.txt</value>
   </data>
+  <data name="PersonalizedExceptionMessage" xml:space="preserve">
+    <value>Pole '{0}' ma nieprawidłowy parametr!</value>
+  </data>
 </root>

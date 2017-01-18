@@ -41,7 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IControl.cs" />
-    <Compile Include="Models\DeliveryCords.cs" />
+    <Compile Include="Interfaces\IManager.cs" />
+    <Compile Include="Managers\FactoryManager\ManagerFactory.cs" />
+    <Compile Include="Managers\MapManager.cs" />
+    <Compile Include="Managers\ParametersManager.cs" />
+    <Compile Include="Models\Coordinate.cs" />
+    <Compile Include="Models\Costs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Factory\ResourceFactory.cs" />
     <Compile Include="Resources\Messages\MessageDictionary.cs" />
@@ -67,9 +72,7 @@
       <LastGenOutput>SectionResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Managers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
