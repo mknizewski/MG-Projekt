@@ -8,6 +8,9 @@ namespace MG_Projekt.BOL.Models
         public double Cost { get; set; }
         public double DrivenKilometers { get; set; }
 
+        private const int Kilometers = 10;
+        private const int RoundedToPrice = 2;
+
         public Costs(
             Coordinate deliveryCoordainate, 
             Coordinate sednerCoordinate, 
@@ -26,13 +29,13 @@ namespace MG_Projekt.BOL.Models
             int deliveryX = DeliveryCoordinate.X;
             int deliveryY = DeliveryCoordinate.Y;
 
-            DrivenKilometers = Math.Sqrt(Math.Pow(deliveryX - senderX, 2.0) + Math.Pow(deliveryY - senderX, 2.0)) * 10;
+            DrivenKilometers = Math.Sqrt(Math.Pow(deliveryX - senderX, 2.0) + Math.Pow(deliveryY - senderX, 2.0)) * Kilometers;
         }
 
         private void CalculateCost(double petrolUsage, double petrolPrice)
         {
             Cost = (DrivenKilometers / petrolUsage) * petrolPrice;
-            Cost = Math.Round(Cost, 2);
+            Cost = Math.Round(Cost, RoundedToPrice);
         }
     }
 }

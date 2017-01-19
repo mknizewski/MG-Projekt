@@ -72,7 +72,8 @@
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="Koszty">
-                        <DataGrid Visibility="Hidden" x:Name="CostDataGrid" ItemsSource="{Binding}">
+                        <DataGrid Visibility="Hidden" x:Name="CostDataGrid" ItemsSource="{Binding}"
+                                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False">
                         </DataGrid>
                     </GroupBox>
                     <GroupBox Header="Funkcja celu">

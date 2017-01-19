@@ -25,6 +25,7 @@ namespace MG_Projekt.BOL.Managers
         public List<Costs> CostsList { get; set; }
 
         // Function
+        public Function Func { get; set; }
 
         public ParametersManager()
         {
