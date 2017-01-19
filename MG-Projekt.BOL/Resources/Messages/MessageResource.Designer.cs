@@ -97,6 +97,15 @@ namespace MG_Projekt.BOL.Resources.Messages {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Wpierw należy obliczyć koszty i wyznaczyć funkcję celu!.
+        /// </summary>
+        internal static string IsNotCalculated {
+            get {
+                return ResourceManager.GetString("IsNotCalculated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Pliki tekstowe (*.txt)|*.txt.
         /// </summary>
         internal static string OpenFileFilter {

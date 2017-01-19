@@ -129,6 +129,9 @@
   <data name="IncorrectSenderCords" xml:space="preserve">
     <value>Punkt nadawczy jest nieprawidłowy!</value>
   </data>
+  <data name="IsNotCalculated" xml:space="preserve">
+    <value>Wpierw należy obliczyć koszty i wyznaczyć funkcję celu!</value>
+  </data>
   <data name="OpenFileFilter" xml:space="preserve">
     <value>Pliki tekstowe (*.txt)|*.txt</value>
   </data>

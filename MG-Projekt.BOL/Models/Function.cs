@@ -18,6 +18,11 @@
             return double.Epsilon;
         }
 
+        public double IncreaseTemperature()
+        {
+            return double.Epsilon;
+        }
+
         public override string ToString()
         {
             string displayFunctionOfTarget = "K(xij) = ";

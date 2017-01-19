@@ -12,6 +12,7 @@ namespace MG_Projekt.BOL.Resources.Messages
         public static string OpenFileFilter = _resourceManager.GetString(nameof(OpenFileFilter));
         public static string ErrorDialogCapiton = _resourceManager.GetString(nameof(ErrorDialogCapiton));
         public static string IncorrectSenderCords = _resourceManager.GetString(nameof(IncorrectSenderCords));
+        public static string IsNotCalculated = _resourceManager.GetString(nameof(IsNotCalculated));
 
         public static string PersonalizedExceptionMessage(string label)
         {

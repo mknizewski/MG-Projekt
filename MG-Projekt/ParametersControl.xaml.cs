@@ -11,7 +11,6 @@ using System.Data;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 
 namespace MG_Projekt
 {
@@ -23,6 +22,7 @@ namespace MG_Projekt
         private const int NoSelected = -1;
 
         private ParametersManager _parametersManager;
+        private bool _isCalculated;
 
         public ParametersControl()
         {
@@ -34,12 +34,19 @@ namespace MG_Projekt
         private void InitializeView()
         {
             _parametersManager = ManagerFactory.GetManager<ParametersManager>();
+            _isCalculated = false;
         }
 
         public bool CheckPermission()
         {
-            MessageBox.Show("Nie mozna kurde");
-            return false;
+            if (!_isCalculated)
+                MessageBox.Show(
+                    MessageDictionary.IsNotCalculated,
+                    MessageDictionary.ErrorDialogCapiton,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+            return _isCalculated;
         }
 
         public void LinkToMethod()
@@ -104,6 +111,8 @@ namespace MG_Projekt
 
                 try
                 {
+                    this.DeliveryCountTextBox.Text = streamReader.ReadLine();
+                    
                     while ((line = streamReader.ReadLine()) != null)
                     {
                         string[] split = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -135,7 +144,8 @@ namespace MG_Projekt
                 _parametersManager.CalculateCosts();
                 ShowCostsDataGrid();
 
-                this.TargetFunctionTextBlock.Text = this._parametersManager.ToString();
+                this.TargetFunctionTextBlock.Text = this._parametersManager.Func.ToString();
+                this._isCalculated = true;
             }
             catch (Exception ex)
             {
@@ -144,6 +154,8 @@ namespace MG_Projekt
                     MessageDictionary.ErrorDialogCapiton,
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
+
+                this._isCalculated = false;
             }
         }
 
@@ -163,9 +175,6 @@ namespace MG_Projekt
             });
 
             dt.Rows.Add(dr);
-            this.CostDataGrid.AutoGenerateColumns = true;
-            this.CostDataGrid.CanUserAddRows = false;
-            this.CostDataGrid.CanUserSortColumns = false;
             this.CostDataGrid.DataContext = dt;
         }
 
@@ -188,11 +197,7 @@ namespace MG_Projekt
             }
             catch (FormatException)
             {
-                MessageBox.Show(
-                    MessageDictionary.IncorrectSenderCords,
-                    MessageDictionary.ErrorDialogCapiton,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                throw new Exception(MessageDictionary.IncorrectSenderCords);
             }
         }
     }
