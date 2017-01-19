@@ -152,7 +152,7 @@ namespace MG_Projekt
             DataTable dt = new DataTable();
             DataRow dr = dt.NewRow();
 
-            // Columns Bulider
+            // Columns & Rows Bulider
             _parametersManager.CostsList.ForEach(x =>
             {
                 dt.Columns.Add(x.DeliveryCoordinate.ToString());
@@ -177,10 +177,20 @@ namespace MG_Projekt
             this._parametersManager.Delta = this.DeltaTextBox.Text.ToDouble(this.DeltaLabel);
             this._parametersManager.IterationCount = this.IterationTextBox.Text.ToInt(this.IterationLabel);
 
-            // TODO: Obsługa wyjątku
-            int x = int.Parse(this.SenderPointXTextBox.Text);
-            int y = int.Parse(this.SenderPointYTextBox.Text);
-            this._parametersManager.SenderCoordiante = Coordinate.GetInstance(x, y);
+            try
+            {
+                int x = int.Parse(this.SenderPointXTextBox.Text);
+                int y = int.Parse(this.SenderPointYTextBox.Text);
+                this._parametersManager.SenderCoordiante = Coordinate.GetInstance(x, y);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show(
+                    MessageDictionary.IncorrectSenderCords,
+                    MessageDictionary.ErrorDialogCapiton,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
     }
 }
