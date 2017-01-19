@@ -1,6 +1,7 @@
 ﻿using MG_Projekt.BOL.Interfaces;
 using MG_Projekt.BOL.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MG_Projekt.BOL.Managers
 {
@@ -41,6 +42,8 @@ namespace MG_Projekt.BOL.Managers
                 Costs costs = new Costs(coords, SenderCoordiante, PetrolUsage, PetrolCost);
                 CostsList.Add(costs);
             });
+
+            this.Func = new Function(CostsList.Select(x => x.Cost).ToArray());
         }
 
         public void CalculateFunction()

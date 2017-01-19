@@ -29,7 +29,7 @@ namespace MG_Projekt.BOL.Models
             int deliveryX = DeliveryCoordinate.X;
             int deliveryY = DeliveryCoordinate.Y;
 
-            DrivenKilometers = Math.Sqrt(Math.Pow(deliveryX - senderX, 2.0) + Math.Pow(deliveryY - senderX, 2.0)) * Kilometers;
+            DrivenKilometers = Math.Sqrt(Math.Pow(deliveryX - senderX, 2.0) + Math.Pow(deliveryY - senderY, 2.0)) * Kilometers;
         }
 
         private void CalculateCost(double petrolUsage, double petrolPrice)

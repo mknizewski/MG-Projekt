@@ -77,7 +77,7 @@
                         </DataGrid>
                     </GroupBox>
                     <GroupBox Header="Funkcja celu">
-                        <TextBlock IsEnabled="False" TextWrapping="WrapWithOverflow"></TextBlock>
+                        <TextBlock x:Name="TargetFunctionTextBlock" IsEnabled="False" TextWrapping="WrapWithOverflow"></TextBlock>
                     </GroupBox>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Vertical">

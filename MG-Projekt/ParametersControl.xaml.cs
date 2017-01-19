@@ -11,6 +11,7 @@ using System.Data;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace MG_Projekt
 {
@@ -133,6 +134,8 @@ namespace MG_Projekt
                 SendDataToManager();
                 _parametersManager.CalculateCosts();
                 ShowCostsDataGrid();
+
+                this.TargetFunctionTextBlock.Text = this._parametersManager.ToString();
             }
             catch (Exception ex)
             {
