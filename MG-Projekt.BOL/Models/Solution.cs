@@ -1,14 +1,12 @@
 ﻿namespace MG_Projekt.BOL.Models
 {
-    public class Function
+    public class Solution
     {
-        // Koszt
         public double[] C { get; set; }
-
-        // Szukane
         public double[] X { get; set; }
+        public int MyProperty { get; set; }
 
-        public Function(double[] c)
+        public Solution(double[] c)
         {
             this.C = c.Clone() as double[];
         }

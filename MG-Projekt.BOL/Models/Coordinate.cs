@@ -3,7 +3,7 @@
     public class Coordinate
     {
         public int X;
-        public int Y;
+        public int Y; 
 
         public Coordinate(int x, int y)
         {
@@ -19,6 +19,44 @@
         public static Coordinate GetInstance(int x, int y)
         {
             return new Coordinate(x, y);
+        }
+    }
+
+    public class SenderCooridante : Coordinate
+    {
+        public int Limit;
+
+        public SenderCooridante(
+            int x, 
+            int y, 
+            int limit) : base(x, y)
+        {
+            this.Limit = limit;
+        }
+
+        public override string ToString()
+        {
+            string baseString = base.ToString() + $" B = {Limit}";
+            return baseString;
+        }
+    }
+
+    public class DeliveryCoordinate : Coordinate
+    {
+        public int Request;
+
+        public DeliveryCoordinate(
+            int x, 
+            int y,
+            int request) : base(x, y)
+        {
+            this.Request = request;
+        }
+
+        public override string ToString()
+        {
+            string baseString = base.ToString() + $" A = {Request}";
+            return baseString;
         }
     }
 }
