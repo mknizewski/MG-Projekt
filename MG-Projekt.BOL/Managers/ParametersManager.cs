@@ -9,15 +9,18 @@ namespace MG_Projekt.BOL.Managers
     {
         // Parameters
         public double PetrolCost { get; set; }
+
         public double PetrolUsage { get; set; }
 
         // Algorithm
         public double Temparature { get; set; }
+
         public double Delta { get; set; }
         public int IterationCount { get; set; }
 
         // Coords
         public List<DeliveryCoordinate> DeliveryCoordinates { get; set; }
+
         public List<SenderCooridante> SenderCoordiantes { get; set; }
 
         // Costs

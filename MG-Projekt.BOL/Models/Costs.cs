@@ -13,9 +13,9 @@ namespace MG_Projekt.BOL.Models
         private const int RoundedToPrice = 2;
 
         public Costs(
-            DeliveryCoordinate deliveryCoordainate, 
-            SenderCooridante sednerCoordinate, 
-            double petrolUsage, 
+            DeliveryCoordinate deliveryCoordainate,
+            SenderCooridante sednerCoordinate,
+            double petrolUsage,
             double petrolPrice)
         {
             this.DeliveryCoordinate = deliveryCoordainate;

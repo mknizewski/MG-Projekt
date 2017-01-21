@@ -90,7 +90,7 @@ namespace MG_Projekt
         {
             DeliveryCoordinate deliveryCoordinate = new DeliveryCoordinate(x, y, request);
             _parametersManager.DeliveryCoordinates.Add(deliveryCoordinate);
-            
+
             ListBoxItem listBoxItem = new ListBoxItem();
             listBoxItem.Content = deliveryCoordinate.ToString();
 
@@ -130,7 +130,7 @@ namespace MG_Projekt
                 string line = string.Empty;
 
                 try
-                {             
+                {
                     while ((line = streamReader.ReadLine()) != null)
                     {
                         string[] split = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -166,7 +166,7 @@ namespace MG_Projekt
 
                 this.TargetFunctionTextBlock.Text = _parametersManager.DisplayFunction();
                 this._isCalculated = _parametersManager.CheckDemondAndSupply();
-                this.DemandSupplyAlert.Visibility = _isCalculated ? Visibility.Hidden : Visibility.Visible; 
+                this.DemandSupplyAlert.Visibility = _isCalculated ? Visibility.Hidden : Visibility.Visible;
             }
             catch (Exception ex)
             {

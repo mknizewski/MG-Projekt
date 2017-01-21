@@ -14,7 +14,7 @@
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="10 10 10 0" Background="White">
-            <xctk:BusyIndicator Panel.ZIndex="9999" x:Name="BusyIndicator" BusyContent="Proszę czekać..." >
+            <xctk:BusyIndicator Panel.ZIndex="9999" x:Name="BusyIndicator" BusyContent="Proszę czekać...">
                 <ContentControl />
             </xctk:BusyIndicator>
             <ContentControl x:Name="DynamicControl"></ContentControl>

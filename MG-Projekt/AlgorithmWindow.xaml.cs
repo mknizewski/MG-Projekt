@@ -1,8 +1,8 @@
 ﻿using MG_Projekt.BOL.Managers;
-using System.Windows;
-using System.ComponentModel;
+using MG_Projekt.BOL.Managers.FactoryManager;
 using MG_Projekt.Infrastructure.Factories;
-using System.Threading;
+using System.ComponentModel;
+using System.Windows;
 
 namespace MG_Projekt
 {
@@ -12,17 +12,24 @@ namespace MG_Projekt
     public partial class AlgorithmWindow : Window
     {
         private ParametersManager _paremetersManager;
+        private AlgorithmManager _algorithmManager;
 
         public AlgorithmWindow(ParametersManager paramentersManager)
         {
             InitializeComponent();
 
             this._paremetersManager = paramentersManager;
+            this._algorithmManager = ManagerFactory.GetManager<AlgorithmManager>();
         }
 
         public void Calculate()
         {
-            Thread.Sleep(10000);
+            _algorithmManager.ParametersManager = _paremetersManager;
+            _algorithmManager.CalculatePossibleSolution();
+        }
+
+        public void DisplayResults()
+        {
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -31,7 +38,7 @@ namespace MG_Projekt
 
             mainWindow.CurrentControl = ControlsType.Parameters;
             mainWindow.CheckSection();
-            
+
             base.OnClosing(e);
         }
     }

@@ -23,6 +23,5 @@ namespace MG_Projekt.BOL.Models
         {
             return Delta * Temperature;
         }
-
     }
 }

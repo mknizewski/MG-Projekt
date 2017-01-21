@@ -1,8 +1,6 @@
 ﻿using MG_Projekt.BOL.Managers;
 using MG_Projekt.Infrastructure.Factories;
 using System.ComponentModel;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MG_Projekt
