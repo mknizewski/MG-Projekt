@@ -55,7 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AlgorithmControl.xaml">
+    <Page Include="AlgorithmWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -67,8 +67,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AlgorithmControl.xaml.cs">
-      <DependentUpon>AlgorithmControl.xaml</DependentUpon>
+    <Compile Include="AlgorithmWindow.xaml.cs">
+      <DependentUpon>AlgorithmWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

@@ -1,12 +1,12 @@
 ﻿namespace MG_Projekt.BOL.Models
 {
-    public class Solution
+    public class SimulateAnnealing
     {
         public double[] C { get; set; }
         public double[] X { get; set; }
         public int MyProperty { get; set; }
 
-        public Solution(double[] c)
+        public SimulateAnnealing(double[] c)
         {
             this.C = c.Clone() as double[];
         }

@@ -21,14 +21,14 @@ namespace MG_Projekt.BOL.Models
             this.DeliveryCoordinate = deliveryCoordainate;
             this.SenderCoordinate = sednerCoordinate;
 
-            CalculateDrivenKilometers(sednerCoordinate);
+            CalculateDrivenKilometers();
             CalculateCost(petrolUsage, petrolPrice);
         }
 
-        private void CalculateDrivenKilometers(Coordinate senderCoordinate)
+        private void CalculateDrivenKilometers()
         {
-            int senderX = senderCoordinate.X;
-            int senderY = senderCoordinate.Y;
+            int senderX = SenderCoordinate.X;
+            int senderY = SenderCoordinate.Y;
             int deliveryX = DeliveryCoordinate.X;
             int deliveryY = DeliveryCoordinate.Y;
 

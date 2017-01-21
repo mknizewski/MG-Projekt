@@ -23,9 +23,6 @@ namespace MG_Projekt.BOL.Managers
         // Costs
         public Costs[,] CostsList { get; set; }
 
-        // Solutions
-        public Solution Func { get; set; }
-
         public ParametersManager()
         {
             this.DeliveryCoordinates = new List<DeliveryCoordinate>();

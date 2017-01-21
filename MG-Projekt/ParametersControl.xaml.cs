@@ -25,6 +25,12 @@ namespace MG_Projekt
         private ParametersManager _parametersManager;
         private bool _isCalculated;
 
+        public ParametersManager ParametersManager
+        {
+            get { return _parametersManager; }
+            set { _parametersManager = value; }
+        }
+
         public ParametersControl()
         {
             InitializeComponent();

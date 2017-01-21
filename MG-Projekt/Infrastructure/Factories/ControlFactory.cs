@@ -27,9 +27,6 @@ namespace MG_Projekt.Infrastructure.Factories
                 case ControlsType.Parameters:
                     return GetControl<ParametersControl>();
 
-                case ControlsType.Alghoritm:
-                    return GetControl<AlgorithmControl>();
-
                 default:
                     return null;
             }
