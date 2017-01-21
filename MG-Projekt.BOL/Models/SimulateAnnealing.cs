@@ -15,13 +15,14 @@ namespace MG_Projekt.BOL.Models
 
         public double PropabilityFunction(Solution oldSolution, Solution newSolution)
         {
-            double result = Math.Exp((-newSolution.TargetFunction() - oldSolution.TargetFunction()) / Temperature);
+            double fun = newSolution.TargetFunction() - oldSolution.TargetFunction();
+            double result = Math.Exp(- (fun / Temperature));
             return result;
         }
 
-        public double LowerTemperature()
+        public void LowerTemperature()
         {
-            return Delta * Temperature;
+            Temperature =  Delta * Temperature;
         }
     }
 }

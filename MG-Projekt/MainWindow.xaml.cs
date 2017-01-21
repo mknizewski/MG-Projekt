@@ -63,8 +63,9 @@ namespace MG_Projekt
 
                 worker.RunWorkerCompleted += (o, ea) =>
                 {
-                    this.BusyIndicator.IsBusy = false;
+                    algorithmWindow.DisplayResults();
                     algorithmWindow.Show();
+                    this.BusyIndicator.IsBusy = false;
                 };
 
                 this.BusyIndicator.IsBusy = true;

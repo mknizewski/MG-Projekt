@@ -13,7 +13,19 @@
 
         public double TargetFunction()
         {
-            return double.Epsilon;
+            double function = 0.0;
+            int senders = C.GetLength(0);
+            int delivers = C.GetLength(1);
+
+            for (int i = 0; i < senders; i++)
+            {
+                for (int j = 0; j < delivers; j++)
+                {
+                    function += C[i, j] * X[i, j];
+                }
+            }
+
+            return function; 
         }
     }
 }

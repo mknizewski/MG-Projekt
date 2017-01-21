@@ -30,6 +30,7 @@ namespace MG_Projekt.BOL.Managers
             double startDelta = ParametersManager.Delta;
             int iteration = ParametersManager.IterationCount;
             Annealing = new SimulateAnnealing(startTemp, startDelta);
+            Solutions.Clear();
 
             Solution a = GetRandomSolution();
             Solutions.Add(a);
@@ -53,6 +54,8 @@ namespace MG_Projekt.BOL.Managers
 
         public Solution GetRandomSolution()
         {
+            ParametersManager.RestoreLimitsAndRequests();
+
             int deliversCount = ParametersManager.DeliveryCoordinates.Count;
             int senderCount = ParametersManager.SenderCoordiantes.Count;
             Solution solution = new Solution(senderCount, deliversCount);
@@ -77,11 +80,11 @@ namespace MG_Projekt.BOL.Managers
                     int randomDelivery = random.Next(deliversCount);
                     DeliveryCoordinate delivery = ParametersManager.DeliveryCoordinates[randomDelivery];
 
-                    if (delivery.CurrentRequest == 0)
-                        continue;
-                    else if (sender.CurrentLimit == 0)
+                    if (sender.CurrentLimit == 0)
                         break;
-
+                    else if (delivery.CurrentRequest == 0)
+                        continue;
+                    
                     if (delivery.CurrentRequest > sender.CurrentLimit)
                     {
                         solution.X[i, randomDelivery] = sender.CurrentLimit;

@@ -44,7 +44,6 @@
     <Compile Include="Interfaces\IManager.cs" />
     <Compile Include="Managers\AlgorithmManager.cs" />
     <Compile Include="Managers\FactoryManager\ManagerFactory.cs" />
-    <Compile Include="Managers\MapManager.cs" />
     <Compile Include="Managers\ParametersManager.cs" />
     <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\Costs.cs" />

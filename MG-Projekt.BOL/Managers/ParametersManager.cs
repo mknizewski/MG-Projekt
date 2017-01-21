@@ -51,6 +51,12 @@ namespace MG_Projekt.BOL.Managers
             }
         }
 
+        public void RestoreLimitsAndRequests()
+        {
+            SenderCoordiantes.ForEach(x => x.CurrentLimit = x.Limit);
+            DeliveryCoordinates.ForEach(x => x.CurrentRequest = x.Request);
+        }
+
         public string DisplayFunction()
         {
             string fun = "K(xij) = ";
