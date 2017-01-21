@@ -2,6 +2,7 @@
 using System.Windows;
 using System.ComponentModel;
 using MG_Projekt.Infrastructure.Factories;
+using System.Threading;
 
 namespace MG_Projekt
 {
@@ -17,6 +18,11 @@ namespace MG_Projekt
             InitializeComponent();
 
             this._paremetersManager = paramentersManager;
+        }
+
+        public void Calculate()
+        {
+            Thread.Sleep(10000);
         }
 
         protected override void OnClosing(CancelEventArgs e)

@@ -5,8 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MG_Projekt"
         mc:Ignorable="d"
-        Title="Symulacja wyrzażania - wyniki" Height="300" Width="300" Icon="Images\icon.ico" WindowStartupLocation="CenterOwner">
+        Title="Symulacja wyrzażania - wyniki" Height="500" Width="500" Icon="Images\icon.ico" WindowStartupLocation="CenterOwner">
     <Grid>
-        
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <GroupBox Header="Mapa">
+                        <Canvas x:Name="MapCanvas"></Canvas>
+                    </GroupBox>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Vertical">
+                    <GroupBox Header="Tabela rozwiązania">
+                        <DataGrid x:Name="SolutionDataGrid"></DataGrid>
+                    </GroupBox>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Window>

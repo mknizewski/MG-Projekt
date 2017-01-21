@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MG_Projekt"
         mc:Ignorable="d"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Metody globalizacji - Projekt" Height="550" Width="725" Background="Gray"
         Icon="Images/icon.ico">
     <Grid>
@@ -13,6 +14,9 @@
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="10 10 10 0" Background="White">
+            <xctk:BusyIndicator Panel.ZIndex="9999" x:Name="BusyIndicator" BusyContent="Proszę czekać..." >
+                <ContentControl />
+            </xctk:BusyIndicator>
             <ContentControl x:Name="DynamicControl"></ContentControl>
         </Grid>
         <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">

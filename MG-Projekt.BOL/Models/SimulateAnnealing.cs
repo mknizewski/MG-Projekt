@@ -1,39 +1,28 @@
-﻿namespace MG_Projekt.BOL.Models
+﻿using System;
+
+namespace MG_Projekt.BOL.Models
 {
     public class SimulateAnnealing
     {
-        public double[] C { get; set; }
-        public double[] X { get; set; }
-        public int MyProperty { get; set; }
+        public double Temperature { get; set; }
+        public double Delta { get; set; }
 
-        public SimulateAnnealing(double[] c)
+        public SimulateAnnealing(double startTemperature, double startDelta)
         {
-            this.C = c.Clone() as double[];
+            this.Temperature = startTemperature;
+            this.Delta = startDelta;
         }
 
-        public double CalculateFunction()
+        public double PropabilityFunction(Solution oldSolution, Solution newSolution)
         {
-            return double.Epsilon;
+            double result = Math.Exp((-newSolution.TargetFunction() - oldSolution.TargetFunction()) / Temperature);
+            return result;
         }
 
-        public double IncreaseTemperature()
+        public double LowerTemperature()
         {
-            return double.Epsilon;
+            return Delta * Temperature;
         }
 
-        public override string ToString()
-        {
-            string displayFunctionOfTarget = "K(xij) = ";
-
-            for (int i = 0; i < C.Length; i++)
-            {
-                if (i == C.Length - 1)
-                    displayFunctionOfTarget += $"{C[i]}x1{i + 1}";
-                else
-                    displayFunctionOfTarget += $"{C[i]}x1{i + 1} +";
-            }
-
-            return displayFunctionOfTarget;
-        }
     }
 }

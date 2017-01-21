@@ -1,5 +1,8 @@
 ﻿using MG_Projekt.BOL.Managers;
 using MG_Projekt.Infrastructure.Factories;
+using System.ComponentModel;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace MG_Projekt
@@ -50,11 +53,24 @@ namespace MG_Projekt
 
             if (_currentControl == ControlsType.Alghoritm)
             {
+                BackgroundWorker worker = new BackgroundWorker();
                 ParametersControl paramentersControl = (ParametersControl)this.DynamicControl.Content;
                 ParametersManager paramentersManager = paramentersControl.ParametersManager;
-
                 AlgorithmWindow algorithmWindow = new AlgorithmWindow(paramentersManager);
-                algorithmWindow.Show();
+
+                worker.DoWork += (o, ea) =>
+                {
+                    algorithmWindow.Calculate();
+                };
+
+                worker.RunWorkerCompleted += (o, ea) =>
+                {
+                    this.BusyIndicator.IsBusy = false;
+                    algorithmWindow.Show();
+                };
+
+                this.BusyIndicator.IsBusy = true;
+                worker.RunWorkerAsync();
             }
             else if (_currentControl == ControlsType.Parameters)
             {
