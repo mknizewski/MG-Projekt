@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="MG_Projekt.ParametersControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MG_Projekt"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="500" Background="White">
+    <Grid>
+        <ScrollViewer>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5 5 5 5">
+                    <GroupBox Header="Koszty">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <Label x:Name="PetrolPriceLabel" MinWidth="115">Cena za 1l benzyny</Label>
+                                <TextBox x:Name="PetrolPriceTextBox" Margin="5 5 5 5" MinWidth="100"></TextBox>
+                                <Label>zł</Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label x:Name="PetrolUsageLabel" MinWidth="115">Zużycie na 100 km</Label>
+                                <TextBox x:Name="PetrolUsageTextBox" Margin="5 5 5 5" MinWidth="100"></TextBox>
+                                <Label>litrów</Label>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Algorytm symulacji wyrzażania">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <Label x:Name="TemperatureLabel" MinWidth="115">Temperatura</Label>
+                                <TextBox x:Name="TemperatureTextBox" MinWidth="100" Margin="5 5 5 5"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label x:Name="DeltaLabel" MinWidth="115">Delta</Label>
+                                <TextBox x:Name="DeltaTextBox" MinWidth="100" Margin="5 5 5 5"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label x:Name="IterationLabel" MinWidth="115">Warunek stopu</Label>
+                                <TextBox x:Name="IterationTextBox" MinWidth="100" Margin="5 5 5 5"></TextBox>
+                                <Label>powtórzeń</Label>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Punkty odbioru">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <Label MinWidth="115">X</Label>
+                                <TextBox x:Name="XCords" MinWidth="100" Margin="5 5 5 5"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label MinWidth="115">Y</Label>
+                                <TextBox x:Name="YCords" MinWidth="100" Margin="5 5 5 5"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label MinWidth="115">Zapotrzebowanie</Label>
+                                <TextBox x:Name="RequestTextBox" MinWidth="100" Margin="5 5 5 5"></TextBox>
+                            </StackPanel>
+                            <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+                                <Button x:Name="FromFileCord" Click="FromFileCord_Click" Cursor="Hand" MinWidth="50" Margin="0 0 5 0">Z pliku</Button>
+                                <Button x:Name="DeleteCord" Click="DeleteCord_Click" Cursor="Hand" MinWidth="50" Margin="0 0 5 0">Usuń</Button>
+                                <Button x:Name="AddCord" Click="AddCord_Click" Cursor="Hand" MinWidth="50">Dodaj</Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Punkty nadawcze">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <Label MinWidth="115">X</Label>
+                                <TextBox x:Name="SenderPointXTextBox" MinWidth="100" Margin="5 5 5 5"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label MinWidth="115">Y</Label>
+                                <TextBox x:Name="SenderPointYTextBox" MinWidth="100" Margin="5 5 5 5"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label MinWidth="115">Limit</Label>
+                                <TextBox x:Name="LimitTextBox" MinWidth="100" Margin="5 5 5 5"></TextBox>
+                            </StackPanel>
+                            <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+                                <Button x:Name="SenderFromFileButton" Click="SenderFromFileButton_Click" Cursor="Hand" MinWidth="50" Margin="0 0 5 0">Z pliku</Button>
+                                <Button x:Name="DeleteSenderButton" Click="DeleteSenderButton_Click" Cursor="Hand" MinWidth="50" Margin="0 0 5 0">Usuń</Button>
+                                <Button x:Name="AddSenderButton" Click="AddSenderButton_Click" Cursor="Hand" MinWidth="50">Dodaj</Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Koszty">
+                        <StackPanel Orientation="Vertical">
+                            <DataGrid Visibility="Hidden" x:Name="CostDataGrid" ItemsSource="{Binding}"
+                                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False">
+                            </DataGrid>
+                            <Label Visibility="Hidden" x:Name="DemandSupplyAlert" Foreground="Red">Popyt i podaż nie są równe!</Label>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Ograniczenia">
+                        <StackPanel Orientation="Vertical">
+                            <Label FontSize="10">Ograniczenia odbiorców:</Label>
+                            <TextBlock x:Name="DeliversLimitTextBox"></TextBlock>
+                            <Label FontSize="10">Ograniczenia nadawców:</Label>
+                            <TextBlock x:Name="SendersLimitTextBox"></TextBlock>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Funkcja celu">
+                        <TextBlock x:Name="TargetFunctionTextBlock" IsEnabled="False" TextWrapping="WrapWithOverflow"></TextBlock>
+                    </GroupBox>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <GroupBox Header="Odbiorcy" Margin="5 5 5 0">
+                        <StackPanel Orientation="Vertical">
+                            <ListBox x:Name="DeliveryCordListBox" Grid.Column="1" MinHeight="209" Margin="5 5 5 5">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Margin="2 2 2 2" Text="{Binding DispCords}"></TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Nadawcy" Margin="5 5 5 0">
+                        <StackPanel Orientation="Vertical">
+                            <ListBox x:Name="SenderCordListBox" Grid.Column="1" MinHeight="209" Margin="5 5 5 5">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Margin="2 2 2 2" Text="{Binding DispCords}"></TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <Button x:Name="CalculateButton" Click="CalculateButton_Click" VerticalAlignment="Bottom" Cursor="Hand" Margin="5 5 5 5">Sprawdź</Button>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

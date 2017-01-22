@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="MG_Projekt.ProblemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MG_Projekt"
+             mc:Ignorable="d"
+             d:DesignHeight="550" d:DesignWidth="700" Background="White">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Label FontSize="24" FontFamily="Open Sans" FontWeight="Black">Sformułowanie problemu transportowego</Label>
+            <TextBlock Margin="5 5 5 5" TextAlignment="Justify" TextWrapping="WrapWithOverflow" IsEnabled="False" x:Name="GenesisOfProblemTextBlock" FontSize="16" FontFamily="Open Sans"></TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>

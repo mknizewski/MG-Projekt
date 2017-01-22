@@ -1,0 +1,28 @@
+﻿<Window x:Class="MG_Projekt.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MG_Projekt"
+        mc:Ignorable="d"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="Metody globalizacji - Projekt" Height="550" Width="725" Background="Gray"
+        Icon="Images/icon.ico" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="10 10 10 0" Background="White">
+            <xctk:BusyIndicator Panel.ZIndex="9999" x:Name="BusyIndicator" BusyContent="Proszę czekać...">
+                <ContentControl />
+            </xctk:BusyIndicator>
+            <ContentControl x:Name="DynamicControl"></ContentControl>
+        </Grid>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button x:Name="PervButton" Width="100" Cursor="Hand" Click="PervButton_Click">Poprzedni</Button>
+            <Label x:Name="SectionLabel" FontSize="24" FontWeight="Black">Sekcja</Label>
+            <Button x:Name="NextButton" Width="100" Cursor="Hand" Click="NextButton_Click">Następny</Button>
+        </StackPanel>
+    </Grid>
+</Window>
