@@ -1,4 +1,6 @@
-﻿using MG_Projekt.Infrastructure.Factories;
+﻿using MG_Projekt.BOL.Managers;
+using MG_Projekt.Infrastructure.Factories;
+using System.ComponentModel;
 using System.Windows;
 
 namespace MG_Projekt
@@ -11,6 +13,12 @@ namespace MG_Projekt
         public CheckIfUserCanGo CheckingSectionMethod;
 
         private const int SwitchModule = 1;
+
+        public ControlsType CurrentControl
+        {
+            get { return _currentControl; }
+            set { _currentControl = value; }
+        }
 
         public MainWindow()
         {
@@ -28,7 +36,7 @@ namespace MG_Projekt
             this._currentControl = ControlsType.Introduction;
         }
 
-        private void CheckSection()
+        public void CheckSection()
         {
             this.PervButton.IsEnabled = _currentControl != ControlsType.Introduction;
             this.NextButton.IsEnabled = _currentControl != ControlsType.Alghoritm;
@@ -41,8 +49,41 @@ namespace MG_Projekt
             else
                 _currentControl = (ControlsType)(_currentControl - SwitchModule);
 
-            this.DynamicControl.Content = ControlFactory.GetControlByEnum(_currentControl);
-            this.SectionLabel.Content = ControlFactory.GetSection(_currentControl);
+            if (_currentControl == ControlsType.Alghoritm)
+            {
+                BackgroundWorker worker = new BackgroundWorker();
+                ParametersControl paramentersControl = (ParametersControl)this.DynamicControl.Content;
+                ParametersManager paramentersManager = paramentersControl.ParametersManager;
+                AlgorithmWindow algorithmWindow = new AlgorithmWindow(paramentersManager);
+
+                worker.DoWork += (o, ea) =>
+                {
+                    algorithmWindow.Calculate();
+                };
+
+                worker.RunWorkerCompleted += (o, ea) =>
+                {
+                    algorithmWindow.DisplayResults();
+                    algorithmWindow.Show();
+                    this.BusyIndicator.IsBusy = false;
+                };
+
+                this.BusyIndicator.IsBusy = true;
+                worker.RunWorkerAsync();
+            }
+            else if (_currentControl == ControlsType.Parameters)
+            {
+                this.DynamicControl.Content = ControlFactory.GetControlByEnum(_currentControl);
+                this.SectionLabel.Content = ControlFactory.GetSection(_currentControl);
+                this.NextButton.Content = "Algorytm";
+            }
+            else
+            {
+                this.DynamicControl.Content = ControlFactory.GetControlByEnum(_currentControl);
+                this.SectionLabel.Content = ControlFactory.GetSection(_currentControl);
+                this.NextButton.Content = "Następny";
+            }
+
             CheckSection();
         }
 

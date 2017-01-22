@@ -4,7 +4,8 @@ namespace MG_Projekt.BOL.Models
 {
     public class Costs
     {
-        public Coordinate DeliveryCoordinate { get; set; }
+        public DeliveryCoordinate DeliveryCoordinate { get; set; }
+        public SenderCooridante SenderCoordinate { get; set; }
         public double Cost { get; set; }
         public double DrivenKilometers { get; set; }
 
@@ -12,20 +13,22 @@ namespace MG_Projekt.BOL.Models
         private const int RoundedToPrice = 2;
 
         public Costs(
-            Coordinate deliveryCoordainate, 
-            Coordinate sednerCoordinate, 
-            double petrolUsage, 
+            DeliveryCoordinate deliveryCoordainate,
+            SenderCooridante sednerCoordinate,
+            double petrolUsage,
             double petrolPrice)
         {
             this.DeliveryCoordinate = deliveryCoordainate;
-            CalculateDrivenKilometers(sednerCoordinate);
+            this.SenderCoordinate = sednerCoordinate;
+
+            CalculateDrivenKilometers();
             CalculateCost(petrolUsage, petrolPrice);
         }
 
-        private void CalculateDrivenKilometers(Coordinate senderCoordinate)
+        private void CalculateDrivenKilometers()
         {
-            int senderX = senderCoordinate.X;
-            int senderY = senderCoordinate.Y;
+            int senderX = SenderCoordinate.X;
+            int senderY = SenderCoordinate.Y;
             int deliveryX = DeliveryCoordinate.X;
             int deliveryY = DeliveryCoordinate.Y;
 

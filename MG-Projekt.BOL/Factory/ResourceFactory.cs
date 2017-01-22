@@ -1,6 +1,6 @@
 ﻿using System.Resources;
 
-namespace MG_Projekt.BOL.Resources.Factory
+namespace MG_Projekt.BOL.Factory
 {
     public static class ResourceFactory
     {

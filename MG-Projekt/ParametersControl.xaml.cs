@@ -1,6 +1,6 @@
-﻿using MG_Projekt.BOL.Interfaces;
+﻿using MG_Projekt.BOL.FactoryManager;
+using MG_Projekt.BOL.Interfaces;
 using MG_Projekt.BOL.Managers;
-using MG_Projekt.BOL.Managers.FactoryManager;
 using MG_Projekt.BOL.Models;
 using MG_Projekt.BOL.Resources.Messages;
 using MG_Projekt.Infrastructure;
@@ -9,6 +9,7 @@ using Microsoft.Win32;
 using System;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,6 +24,12 @@ namespace MG_Projekt
 
         private ParametersManager _parametersManager;
         private bool _isCalculated;
+
+        public ParametersManager ParametersManager
+        {
+            get { return _parametersManager; }
+            set { _parametersManager = value; }
+        }
 
         public ParametersControl()
         {
@@ -61,11 +68,13 @@ namespace MG_Projekt
             {
                 int x = int.Parse(XCords.Text);
                 int y = int.Parse(YCords.Text);
+                int request = int.Parse(RequestTextBox.Text);
 
-                this.AddCoords(x, y);
+                this.AddDeliveryCoords(x, y, request);
 
                 this.XCords.Text = string.Empty;
                 this.YCords.Text = string.Empty;
+                this.RequestTextBox.Text = string.Empty;
             }
             catch (FormatException)
             {
@@ -77,24 +86,35 @@ namespace MG_Projekt
             }
         }
 
-        private void AddCoords(int x, int y)
+        private void AddDeliveryCoords(int x, int y, int request)
         {
-            Coordinate cords = Coordinate.GetInstance(x, y);
-            _parametersManager.DeliveryCoordinates.Add(cords);
-            
-            ListBoxItem listBoxItem = new ListBoxItem();
-            listBoxItem.Content = cords.ToString();
+            DeliveryCoordinate deliveryCoordinate = new DeliveryCoordinate(x, y, request);
+            _parametersManager.DeliveryCoordinates.Add(deliveryCoordinate);
 
-            this.CordListBox.Items.Add(listBoxItem);
+            ListBoxItem listBoxItem = new ListBoxItem();
+            listBoxItem.Content = deliveryCoordinate.ToString();
+
+            this.DeliveryCordListBox.Items.Add(listBoxItem);
+        }
+
+        private void AddSenderCoords(int x, int y, int limit)
+        {
+            SenderCooridante senderCoordinate = new SenderCooridante(x, y, limit);
+            _parametersManager.SenderCoordiantes.Add(senderCoordinate);
+
+            ListBoxItem listBoxItem = new ListBoxItem();
+            listBoxItem.Content = senderCoordinate.ToString();
+
+            this.SenderCordListBox.Items.Add(listBoxItem);
         }
 
         private void DeleteCord_Click(object sender, RoutedEventArgs e)
         {
-            int selectedIndex = this.CordListBox.SelectedIndex;
+            int selectedIndex = this.DeliveryCordListBox.SelectedIndex;
 
             if (selectedIndex != NoSelected)
             {
-                this.CordListBox.Items.RemoveAt(selectedIndex);
+                this.DeliveryCordListBox.Items.RemoveAt(selectedIndex);
                 _parametersManager.DeliveryCoordinates.RemoveAt(selectedIndex);
             }
         }
@@ -111,15 +131,14 @@ namespace MG_Projekt
 
                 try
                 {
-                    this.DeliveryCountTextBox.Text = streamReader.ReadLine();
-                    
                     while ((line = streamReader.ReadLine()) != null)
                     {
                         string[] split = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                         int x = int.Parse(split[0]);
                         int y = int.Parse(split[1]);
+                        int request = int.Parse(split[2]);
 
-                        this.AddCoords(x, y);
+                        this.AddDeliveryCoords(x, y, request);
                     }
                 }
                 catch (Exception)
@@ -143,9 +162,11 @@ namespace MG_Projekt
                 SendDataToManager();
                 _parametersManager.CalculateCosts();
                 ShowCostsDataGrid();
+                ShowLimits();
 
-                this.TargetFunctionTextBlock.Text = this._parametersManager.Func.ToString();
-                this._isCalculated = true;
+                this.TargetFunctionTextBlock.Text = _parametersManager.DisplayFunction();
+                this._isCalculated = _parametersManager.CheckDemondAndSupply();
+                this.DemandSupplyAlert.Visibility = _isCalculated ? Visibility.Hidden : Visibility.Visible;
             }
             catch (Exception ex)
             {
@@ -159,45 +180,142 @@ namespace MG_Projekt
             }
         }
 
+        private void ShowLimits()
+        {
+            this.DeliversLimitTextBox.Inlines.Clear();
+            this.SendersLimitTextBox.Inlines.Clear();
+
+            string[] deliveryLimits = _parametersManager.DisplayDeliversLimit();
+            string[] senderLimits = _parametersManager.DisplaySendersLimit();
+
+            for (int i = 0; i < deliveryLimits.Length; i++)
+                this.DeliversLimitTextBox.Inlines.Add(deliveryLimits[i] + Environment.NewLine);
+
+            for (int i = 0; i < senderLimits.Length; i++)
+                this.SendersLimitTextBox.Inlines.Add(senderLimits[i] + Environment.NewLine);
+        }
+
         private void ShowCostsDataGrid()
         {
-            // Visibility
             this.CostDataGrid.Visibility = Visibility.Visible;
 
+            int senderCount = _parametersManager.CostsList.GetLength(0);
+            int deliveryCount = _parametersManager.CostsList.GetLength(1);
             DataTable dt = new DataTable();
-            DataRow dr = dt.NewRow();
+            dt.Columns.Add(@"Nadawcy \ Odbiorcy");
 
-            // Columns & Rows Bulider
-            _parametersManager.CostsList.ForEach(x =>
+            for (int i = 0; i < senderCount; i++)
             {
-                dt.Columns.Add(x.DeliveryCoordinate.ToString());
-                dr[x.DeliveryCoordinate.ToString()] = x.Cost;
-            });
+                DataRow dataRow = dt.NewRow();
+                for (int j = 0; j < deliveryCount; j++)
+                {
+                    if (!dt.Columns.Contains("O" + j.ToString()))
+                        dt.Columns.Add("O" + j.ToString());
 
-            dt.Rows.Add(dr);
+                    Costs cost = _parametersManager.CostsList[i, j];
+                    dataRow["O" + j.ToString()] = cost.Cost;
+                    dataRow[@"Nadawcy \ Odbiorcy"] = "N" + i.ToString();
+                }
+
+                if (!dt.Columns.Contains("Ai"))
+                    dt.Columns.Add("Ai");
+
+                dataRow["Ai"] = _parametersManager.SenderCoordiantes[i].Limit;
+                dt.Rows.Add(dataRow);
+            }
+
+            DataRow biRow = dt.NewRow();
+            biRow[@"Nadawcy \ Odbiorcy"] = "Bi";
+            for (int i = 0; i < deliveryCount; i++)
+                biRow["O" + i.ToString()] = _parametersManager.DeliveryCoordinates[i].Request;
+
+            int demand = _parametersManager.DeliveryCoordinates.Sum(x => x.Request);
+            int supply = _parametersManager.SenderCoordiantes.Sum(x => x.Limit);
+
+            biRow["Ai"] = $@"{demand} \ {supply}";
+
+            dt.Rows.Add(biRow);
             this.CostDataGrid.DataContext = dt;
         }
 
         private void SendDataToManager()
         {
-            this._parametersManager.DeliveryCount = this.DeliveryCountTextBox.Text.ToInt(this.DeliveryCountLabel);
             this._parametersManager.PetrolCost = this.PetrolPriceTextBox.Text.ToDouble(this.PetrolPriceLabel);
             this._parametersManager.PetrolUsage = this.PetrolUsageTextBox.Text.ToDouble(this.PetrolUsageLabel);
-            this._parametersManager.Trucks = this.TrucksTextBox.Text.ToInt(this.TrucksLabel);
 
             this._parametersManager.Temparature = this.TemperatureTextBox.Text.ToDouble(this.TemperatureLabel);
             this._parametersManager.Delta = this.DeltaTextBox.Text.ToDouble(this.DeltaLabel);
             this._parametersManager.IterationCount = this.IterationTextBox.Text.ToInt(this.IterationLabel);
+        }
 
+        private void AddSenderButton_Click(object sender, RoutedEventArgs e)
+        {
             try
             {
-                int x = int.Parse(this.SenderPointXTextBox.Text);
-                int y = int.Parse(this.SenderPointYTextBox.Text);
-                this._parametersManager.SenderCoordiante = Coordinate.GetInstance(x, y);
+                int x = int.Parse(SenderPointXTextBox.Text);
+                int y = int.Parse(SenderPointYTextBox.Text);
+                int limit = int.Parse(LimitTextBox.Text);
+
+                this.AddSenderCoords(x, y, limit);
+
+                this.SenderPointXTextBox.Text = string.Empty;
+                this.SenderPointYTextBox.Text = string.Empty;
+                this.LimitTextBox.Text = string.Empty;
             }
             catch (FormatException)
             {
-                throw new Exception(MessageDictionary.IncorrectSenderCords);
+                MessageBox.Show(
+                    MessageDictionary.IncorrectCords,
+                    MessageDictionary.ErrorDialogCapiton,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        private void DeleteSenderButton_Click(object sender, RoutedEventArgs e)
+        {
+            int selectedIndex = this.SenderCordListBox.SelectedIndex;
+
+            if (selectedIndex != NoSelected)
+            {
+                this._parametersManager.SenderCoordiantes.RemoveAt(selectedIndex);
+                this.SenderCordListBox.Items.RemoveAt(selectedIndex);
+            }
+        }
+
+        private void SenderFromFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = MessageDictionary.OpenFileFilter;
+
+            if (fileDialog.ShowDialog() == true)
+            {
+                StreamReader streamReader = new StreamReader(fileDialog.FileName);
+                string line = string.Empty;
+
+                try
+                {
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        string[] split = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        int x = int.Parse(split[0]);
+                        int y = int.Parse(split[1]);
+                        int limit = int.Parse(split[2]);
+
+                        this.AddSenderCoords(x, y, limit);
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(
+                        MessageDictionary.IncorrectFile,
+                        MessageDictionary.ErrorDialogCapiton,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+
+                streamReader.Close();
+                streamReader.Dispose();
             }
         }
     }
