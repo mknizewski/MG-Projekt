@@ -28,6 +28,7 @@
                                   CanUserSortColumns="False"></DataGrid>
                     </GroupBox>
                     <Label x:Name="CostLabel" FontSize="16">Koszt całkowity: {0} zł</Label>
+                    <Label x:Name="DriverKilometersLabel" FontSize="16">Przejechane: {0} km</Label>
                 </StackPanel>
             </Grid>
         </ScrollViewer>

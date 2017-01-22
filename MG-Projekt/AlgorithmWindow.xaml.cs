@@ -113,6 +113,7 @@ namespace MG_Projekt
             }
 
             this.CostLabel.Content = string.Format(this.CostLabel.Content.ToString(), bestSolution.TargetFunction());
+            this.DriverKilometersLabel.Content = string.Format(this.DriverKilometersLabel.Content.ToString(), _algorithmManager.GetTotalKilometers());
             this.SolutionDataGrid.DataContext = dataTable;
         }
 

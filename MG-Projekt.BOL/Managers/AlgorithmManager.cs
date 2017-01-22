@@ -42,14 +42,42 @@ namespace MG_Projekt.BOL.Managers
                 Solutions.Add(b);
 
                 if (b.TargetFunction() < a.TargetFunction())
-                    a = b;
+                    SwapSolutions(a, b);
                 else if (random.NextDouble() < Annealing.PropabilityFunction(a, b))
-                    a = b;
+                    SwapSolutions(a, b);
 
                 Annealing.LowerTemperature();
             }
 
             BestSolution = a;
+        }
+
+        public double GetTotalKilometers()
+        {
+            double kilometers = 0.0;
+            int senders = ParametersManager.SenderCoordiantes.Count;
+            int delivers = ParametersManager.DeliveryCoordinates.Count;
+
+            for (int i = 0; i < senders; i++)
+            {
+                for (int j = 0; j < delivers; j++)
+                {
+                    if (BestSolution.X[i, j] != 0)
+                        kilometers += ParametersManager.CostsList[i, j].DrivenKilometers;
+                }
+            }
+
+            return kilometers;
+        }
+
+        private void SwapSolutions(Solution a, Solution b)
+        {
+            int deliversCount = ParametersManager.DeliveryCoordinates.Count;
+            int senderCount = ParametersManager.SenderCoordiantes.Count;
+
+            a = new Solution(senderCount, deliversCount);
+            a.C = b.C.Clone() as double[,];
+            a.X = b.X.Clone() as double[,];
         }
 
         public Solution GetRandomSolution()
@@ -100,7 +128,7 @@ namespace MG_Projekt.BOL.Managers
 
                     servedDeliversIndex.Add(randomDelivery);
                 }
-                while (servedDeliversIndex.Count != deliversCount - 1);
+                while (servedDeliversIndex.Count != deliversCount);
             }
 
             return solution;
