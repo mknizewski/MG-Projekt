@@ -1,12 +1,19 @@
-﻿namespace MG_Projekt.BOL.Models
+﻿using System;
+
+namespace MG_Projekt.BOL.Models
 {
-    public class Solution
+    public class Solution : IEquatable<Solution>
     {
         public double[,] X { get; set; }
         public double[,] C { get; set; }
 
+        private int _sender;
+        private int _deliver;
+
         public Solution(int sender, int deliver)
         {
+            this._sender = sender;
+            this._deliver = deliver;
             this.X = new double[sender, deliver];
             this.C = new double[sender, deliver];
         }
@@ -26,6 +33,20 @@
             }
 
             return function;
+        }
+
+        public bool Equals(Solution other)
+        {
+            for (int i = 0; i < _sender; i++)
+            {
+                for (int j = 0; j < _deliver; j++)
+                {
+                    if (this.X[i, j] != other.X[i, j])
+                        return false;
+                }
+            }
+
+            return true;
         }
     }
 }

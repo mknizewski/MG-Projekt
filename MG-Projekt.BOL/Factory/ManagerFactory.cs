@@ -1,4 +1,4 @@
-﻿namespace MG_Projekt.BOL.Managers.FactoryManager
+﻿namespace MG_Projekt.BOL.FactoryManager
 {
     public static class ManagerFactory
     {

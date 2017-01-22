@@ -1,5 +1,5 @@
-﻿using MG_Projekt.BOL.Managers;
-using MG_Projekt.BOL.Managers.FactoryManager;
+﻿using MG_Projekt.BOL.FactoryManager;
+using MG_Projekt.BOL.Managers;
 using MG_Projekt.BOL.Models;
 using MG_Projekt.Infrastructure.Factories;
 using OxyPlot;
@@ -31,7 +31,7 @@ namespace MG_Projekt
 
         public void Calculate()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
             _algorithmManager.ParametersManager = _paremetersManager;
             _algorithmManager.CalculatePossibleSolution();
         }
@@ -112,7 +112,7 @@ namespace MG_Projekt
                 dataTable.Rows.Add(dataRow);
             }
 
-            this.CostLabel.Content = string.Format(this.CostLabel.Content.ToString(), bestSolution.TargetFunction());
+            this.CostLabel.Content = string.Format(this.CostLabel.Content.ToString(), _algorithmManager.GetTotalCost());
             this.DriverKilometersLabel.Content = string.Format(this.DriverKilometersLabel.Content.ToString(), _algorithmManager.GetTotalKilometers());
             this.SolutionDataGrid.DataContext = dataTable;
         }
@@ -125,6 +125,12 @@ namespace MG_Projekt
             mainWindow.CheckSection();
 
             base.OnClosing(e);
+        }
+
+        private void AllSolutionsButton_Click(object sender, RoutedEventArgs e)
+        {
+            SolutionsWindow solutionWindow = new SolutionsWindow(_algorithmManager);
+            solutionWindow.Show();
         }
     }
 }

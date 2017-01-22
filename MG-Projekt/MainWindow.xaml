@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Metody globalizacji - Projekt" Height="550" Width="725" Background="Gray"
-        Icon="Images/icon.ico">
+        Icon="Images/icon.ico" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>

@@ -38,15 +38,23 @@ namespace MG_Projekt.BOL.Managers
             for (int i = 0; i < iteration; i++)
             {
                 Random random = new Random();
-                Solution b = GetRandomSolution();
-                Solutions.Add(b);
+                Solution b;
+
+                do
+                {
+                    b = GetRandomSolution();
+                }
+                while (a.Equals(b));
+
+                if (!Solutions.Contains(b))
+                    Solutions.Add(b);
 
                 if (b.TargetFunction() < a.TargetFunction())
                     SwapSolutions(a, b);
                 else if (random.NextDouble() < Annealing.PropabilityFunction(a, b))
                     SwapSolutions(a, b);
 
-                Annealing.LowerTemperature();
+                Annealing.SetLowerTemperature();
             }
 
             BestSolution = a;
@@ -67,7 +75,35 @@ namespace MG_Projekt.BOL.Managers
                 }
             }
 
-            return kilometers;
+            return Math.Round(kilometers, 2);
+        }
+
+        public double GetTotalKilometersBySolution(Solution solution)
+        {
+            double kilometers = 0.0;
+            int senders = ParametersManager.SenderCoordiantes.Count;
+            int delivers = ParametersManager.DeliveryCoordinates.Count;
+
+            for (int i = 0; i < senders; i++)
+            {
+                for (int j = 0; j < delivers; j++)
+                {
+                    if (solution.X[i, j] != 0)
+                        kilometers += ParametersManager.CostsList[i, j].DrivenKilometers;
+                }
+            }
+
+            return Math.Round(kilometers, 2);
+        }
+
+        public double GetTotalCostBySolution(Solution solution)
+        {
+            return solution.TargetFunction();
+        }
+
+        public double GetTotalCost()
+        {
+            return BestSolution.TargetFunction();
         }
 
         private void SwapSolutions(Solution a, Solution b)

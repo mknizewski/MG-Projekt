@@ -1,4 +1,4 @@
-﻿using MG_Projekt.BOL.Resources.Factory;
+﻿using MG_Projekt.BOL.Factory;
 using System.Resources;
 
 namespace MG_Projekt.BOL.Resources.Section

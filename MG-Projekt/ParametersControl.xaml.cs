@@ -1,6 +1,6 @@
-﻿using MG_Projekt.BOL.Interfaces;
+﻿using MG_Projekt.BOL.FactoryManager;
+using MG_Projekt.BOL.Interfaces;
 using MG_Projekt.BOL.Managers;
-using MG_Projekt.BOL.Managers.FactoryManager;
 using MG_Projekt.BOL.Models;
 using MG_Projekt.BOL.Resources.Messages;
 using MG_Projekt.Infrastructure;

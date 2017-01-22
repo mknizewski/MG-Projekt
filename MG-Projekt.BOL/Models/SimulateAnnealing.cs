@@ -20,7 +20,7 @@ namespace MG_Projekt.BOL.Models
             return result;
         }
 
-        public void LowerTemperature()
+        public void SetLowerTemperature()
         {
             Temperature = Delta * Temperature;
         }
