@@ -10,7 +10,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Threading;
 using System.Windows;
-using System.Windows.Shapes;
 
 namespace MG_Projekt
 {
@@ -87,16 +86,6 @@ namespace MG_Projekt
             }
 
             this.Plot.DataContext = plotViewModel;
-        }
-
-        Ellipse CreateEllipse(double width, double height, double desiredCenterX, double desiredCenterY)
-        {
-            Ellipse ellipse = new Ellipse { Width = width, Height = height };
-            double left = desiredCenterX - (width / 2);
-            double top = desiredCenterY - (height / 2);
-
-            ellipse.Margin = new Thickness(left, top, 0, 0);
-            return ellipse;
         }
 
         private void BulidGrid()

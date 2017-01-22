@@ -84,7 +84,7 @@ namespace MG_Projekt.BOL.Managers
                         break;
                     else if (delivery.CurrentRequest == 0)
                         continue;
-                    
+
                     if (delivery.CurrentRequest > sender.CurrentLimit)
                     {
                         solution.X[i, randomDelivery] = sender.CurrentLimit;

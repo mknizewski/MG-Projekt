@@ -25,7 +25,7 @@
                 }
             }
 
-            return function; 
+            return function;
         }
     }
 }

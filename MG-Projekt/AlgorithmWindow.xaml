@@ -22,9 +22,9 @@
                 </Grid>
                 <StackPanel Grid.Row="1" Orientation="Vertical">
                     <GroupBox Header="Tabela rozwiązania">
-                        <DataGrid x:Name="SolutionDataGrid" ItemsSource="{Binding}" 
-                                  CanUserAddRows="False" 
-                                  CanUserDeleteRows="False" 
+                        <DataGrid x:Name="SolutionDataGrid" ItemsSource="{Binding}"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"
                                   CanUserSortColumns="False"></DataGrid>
                     </GroupBox>
                     <Label x:Name="CostLabel" FontSize="16">Koszt całkowity: {0} zł</Label>
