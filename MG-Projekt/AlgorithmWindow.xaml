@@ -29,7 +29,7 @@
                     </GroupBox>
                     <Label x:Name="CostLabel" FontSize="16">Koszt całkowity: {0} zł</Label>
                     <Label x:Name="DriverKilometersLabel" FontSize="16">Przejechane: {0} km</Label>
-                    <Button x:Name="AllSolutionsButton" Click="AllSolutionsButton_Click" MaxWidth="160" HorizontalAlignment="Right" Margin="0 0 15 5" Cursor="Hand">Pokaż wszystkie rozwiązania</Button>
+                    <Button x:Name="AllSolutionsButton" Click="AllSolutionsButton_Click" MaxWidth="160" HorizontalAlignment="Right" Margin="0 0 15 5" Cursor="Hand">Pokaż znalezione rozwiązania</Button>
                 </StackPanel>
             </Grid>
         </ScrollViewer>

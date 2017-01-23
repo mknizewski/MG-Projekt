@@ -2,6 +2,7 @@
 using MG_Projekt.Infrastructure.Factories;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MG_Projekt
 {
@@ -66,9 +67,11 @@ namespace MG_Projekt
                     algorithmWindow.DisplayResults();
                     algorithmWindow.Show();
                     this.BusyIndicator.IsBusy = false;
+                    this.Cursor = Cursors.Arrow;
                 };
 
                 this.BusyIndicator.IsBusy = true;
+                this.Cursor = Cursors.Wait;
                 worker.RunWorkerAsync();
             }
             else if (_currentControl == ControlsType.Parameters)
