@@ -6,6 +6,8 @@ namespace MG_Projekt.BOL.Models
     {
         public double[,] X { get; set; }
         public double[,] C { get; set; }
+        public int[] Vector { get; set; }
+        public bool[] IsSeen { get; set; }
 
         private int _sender;
         private int _deliver;
@@ -14,8 +16,21 @@ namespace MG_Projekt.BOL.Models
         {
             this._sender = sender;
             this._deliver = deliver;
+            this.IsSeen = new bool[sender * deliver];
+            this.Vector = new int[sender * deliver];
             this.X = new double[sender, deliver];
             this.C = new double[sender, deliver];
+        }
+
+        public bool AllPositionIsSeen()
+        {
+            for (int i = 0; i < IsSeen.Length; i++)
+            {
+                if (!IsSeen[i])
+                    return false;
+            }
+
+            return true;
         }
 
         public double TargetFunction()
@@ -40,12 +55,17 @@ namespace MG_Projekt.BOL.Models
             return null;
         }
 
-        public void Mutation()
+        private void Initialization()
         {
 
         }
 
-        public void Inversion()
+        private void Mutation()
+        {
+            
+        }
+
+        private void Inversion()
         {
 
         }

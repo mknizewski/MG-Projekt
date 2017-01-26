@@ -124,48 +124,29 @@ namespace MG_Projekt.BOL.Managers
             int senderCount = ParametersManager.SenderCoordiantes.Count;
             Solution solution = new Solution(senderCount, deliversCount);
 
-            for (int i = 0; i < ParametersManager.CostsList.GetLength(0); i++)
+            do
             {
-                for (int j = 0; j < ParametersManager.CostsList.GetLength(1); j++)
-                {
-                    solution.C[i, j] = ParametersManager.CostsList[i, j].Cost;
-                }
-            }
-
-            for (int i = 0; i < senderCount; i++)
-            {
-                SenderCooridante sender = ParametersManager.SenderCoordiantes[i];
                 Random random = new Random();
-                List<int> servedDeliversIndex;
+                int q = random.Next(1, senderCount * deliversCount);
 
-                do
-                {
-                    servedDeliversIndex = new List<int>();
-                    int randomDelivery = random.Next(deliversCount);
-                    DeliveryCoordinate delivery = ParametersManager.DeliveryCoordinates[randomDelivery];
+                if (solution.IsSeen[q])
+                    continue;
 
-                    if (sender.CurrentLimit == 0)
-                        break;
-                    else if (delivery.CurrentRequest == 0)
-                        continue;
+                solution.IsSeen[q] = true;
+                solution.Vector[q] = q;
 
-                    if (delivery.CurrentRequest > sender.CurrentLimit)
-                    {
-                        solution.X[i, randomDelivery] = sender.CurrentLimit;
-                        delivery.CurrentRequest = delivery.CurrentRequest - sender.CurrentLimit;
-                        sender.CurrentLimit = 0;
-                    }
-                    else
-                    {
-                        solution.X[i, randomDelivery] = delivery.CurrentRequest;
-                        sender.CurrentLimit = sender.CurrentLimit - delivery.CurrentRequest;
-                        delivery.CurrentRequest = 0;
-                    }
+                double calculatingRow = (q - 1) / (senderCount + 1);
+                int row = (int)Math.Floor(calculatingRow);
+                int column = (q - 1) % (senderCount + 1);
+                SenderCooridante senderCoords = ParametersManager.SenderCoordiantes[row];
+                DeliveryCoordinate deliveryCoords = ParametersManager.DeliveryCoordinates[column];
+                int value = Math.Min(senderCoords.CurrentLimit, deliveryCoords.CurrentRequest);
 
-                    servedDeliversIndex.Add(randomDelivery);
-                }
-                while (servedDeliversIndex.Count != deliversCount);
+                solution.X[row, column] = value;
+                senderCoords.CurrentLimit = senderCoords.CurrentLimit - value;
+                deliveryCoords.CurrentRequest = deliveryCoords.CurrentRequest - value;
             }
+            while (!solution.AllPositionIsSeen());
 
             return solution;
         }
