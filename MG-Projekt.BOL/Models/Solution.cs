@@ -35,6 +35,21 @@ namespace MG_Projekt.BOL.Models
             return function;
         }
 
+        public Solution SwitchRandomElements()
+        {
+            return null;
+        }
+
+        public void Mutation()
+        {
+
+        }
+
+        public void Inversion()
+        {
+
+        }
+
         public bool Equals(Solution other)
         {
             for (int i = 0; i < _sender; i++)
