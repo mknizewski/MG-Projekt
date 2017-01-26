@@ -40,11 +40,7 @@ namespace MG_Projekt.BOL.Managers
                 Random random = new Random();
                 Solution b;
 
-                do
-                {
-                    b = GetRandomSolution();
-                }
-                while (a.Equals(b));
+                b = ChangeTwoRandomElements(a);
 
                 if (!Solutions.Contains(b))
                     Solutions.Add(b);
@@ -111,9 +107,10 @@ namespace MG_Projekt.BOL.Managers
             int deliversCount = ParametersManager.DeliveryCoordinates.Count;
             int senderCount = ParametersManager.SenderCoordiantes.Count;
 
-            a = new Solution(senderCount, deliversCount);
+            a = new Solution(senderCount, deliversCount, ParametersManager.CostsList);
             a.C = b.C.Clone() as double[,];
             a.X = b.X.Clone() as double[,];
+            a.Vector = b.Vector.Clone() as int[];
         }
 
         public Solution GetRandomSolution()
@@ -122,33 +119,77 @@ namespace MG_Projekt.BOL.Managers
 
             int deliversCount = ParametersManager.DeliveryCoordinates.Count;
             int senderCount = ParametersManager.SenderCoordiantes.Count;
-            Solution solution = new Solution(senderCount, deliversCount);
+            Solution solution = new Solution(senderCount, deliversCount, ParametersManager.CostsList);
+            int i = 0;
 
             do
             {
                 Random random = new Random();
-                int q = random.Next(1, senderCount * deliversCount);
+                int q = random.Next(0, senderCount * deliversCount);
 
-                if (solution.IsSeen[q])
-                    continue;
+                if (!solution.IsSeen[q])
+                {
+                    solution.IsSeen[q] = true;
+                    solution.Vector[i] = q;
+                    i++;
 
-                solution.IsSeen[q] = true;
-                solution.Vector[q] = q;
+                    double calculatingRow = (q) / (senderCount);
+                    int row = (int)Math.Floor(calculatingRow);
+                    int column = (q) % senderCount;
 
-                double calculatingRow = (q - 1) / (senderCount + 1);
-                int row = (int)Math.Floor(calculatingRow);
-                int column = (q - 1) % (senderCount + 1);
-                SenderCooridante senderCoords = ParametersManager.SenderCoordiantes[row];
-                DeliveryCoordinate deliveryCoords = ParametersManager.DeliveryCoordinates[column];
-                int value = Math.Min(senderCoords.CurrentLimit, deliveryCoords.CurrentRequest);
+                    SenderCooridante senderCoords = ParametersManager.SenderCoordiantes[row];
+                    DeliveryCoordinate deliveryCoords = ParametersManager.DeliveryCoordinates[column];
 
-                solution.X[row, column] = value;
-                senderCoords.CurrentLimit = senderCoords.CurrentLimit - value;
-                deliveryCoords.CurrentRequest = deliveryCoords.CurrentRequest - value;
+                    int value = Math.Min(senderCoords.CurrentLimit, deliveryCoords.CurrentRequest);
+
+                    solution.X[row, column] = value;
+                    senderCoords.CurrentLimit = senderCoords.CurrentLimit - value;
+                    deliveryCoords.CurrentRequest = deliveryCoords.CurrentRequest - value;
+                }
             }
             while (!solution.AllPositionIsSeen());
 
             return solution;
+        }
+
+        private Solution ChangeTwoRandomElements(Solution solution)
+        {
+            // TODO: Ogarnąć tutaj nie tylko inwersje ale także i mutację
+            int deliversCount = ParametersManager.DeliveryCoordinates.Count;
+            int senderCount = ParametersManager.SenderCoordiantes.Count;
+            Solution newSolution = new Solution(senderCount, deliversCount, ParametersManager.CostsList);
+
+            newSolution.Vector = solution.Inversion();
+            newSolution.X = RebulidSolutionByVector(newSolution);
+
+            return newSolution;
+        }
+
+        private double[,] RebulidSolutionByVector(Solution solution)
+        {
+            int deliversCount = ParametersManager.DeliveryCoordinates.Count;
+            int senderCount = ParametersManager.SenderCoordiantes.Count;
+            double[,] x = new double[senderCount, deliversCount];
+
+            ParametersManager.RestoreLimitsAndRequests();
+
+            for (int i = 0; i < solution.Vector.Length; i++)
+            {
+                int q = solution.Vector[i];
+                int row = (int)Math.Floor((double)(q / senderCount));
+                int column = q % senderCount;
+
+                SenderCooridante senderCoords = ParametersManager.SenderCoordiantes[row];
+                DeliveryCoordinate deliveryCoors = ParametersManager.DeliveryCoordinates[column];
+
+                int value = Math.Min(senderCoords.CurrentLimit, deliveryCoors.CurrentRequest);
+                senderCoords.CurrentLimit = senderCoords.CurrentLimit - value;
+                deliveryCoors.CurrentRequest = deliveryCoors.CurrentRequest - value;
+
+                x[row, column] = value;
+            }
+
+            return x;
         }
 
         public void Dispose()
