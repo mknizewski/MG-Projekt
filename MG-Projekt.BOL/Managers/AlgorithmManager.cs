@@ -38,17 +38,17 @@ namespace MG_Projekt.BOL.Managers
             for (int i = 0; i < iteration; i++)
             {
                 Random random = new Random();
-                Solution b;
-
-                b = ChangeTwoRandomElements(a);
+                Solution b = GetRandomSolution();
 
                 if (!Solutions.Contains(b))
                     Solutions.Add(b);
+                else
+                    continue;
 
                 if (b.TargetFunction() < a.TargetFunction())
-                    SwapSolutions(a, b);
+                    a = SwapSolutions(a, b);
                 else if (random.NextDouble() < Annealing.PropabilityFunction(a, b))
-                    SwapSolutions(a, b);
+                    a = SwapSolutions(a, b);
 
                 Annealing.SetLowerTemperature();
             }
@@ -102,7 +102,7 @@ namespace MG_Projekt.BOL.Managers
             return BestSolution.TargetFunction();
         }
 
-        private void SwapSolutions(Solution a, Solution b)
+        private Solution SwapSolutions(Solution a, Solution b)
         {
             int deliversCount = ParametersManager.DeliveryCoordinates.Count;
             int senderCount = ParametersManager.SenderCoordiantes.Count;
@@ -111,6 +111,8 @@ namespace MG_Projekt.BOL.Managers
             a.C = b.C.Clone() as double[,];
             a.X = b.X.Clone() as double[,];
             a.Vector = b.Vector.Clone() as int[];
+
+            return a;
         }
 
         public Solution GetRandomSolution()
@@ -154,12 +156,26 @@ namespace MG_Projekt.BOL.Managers
 
         private Solution ChangeTwoRandomElements(Solution solution)
         {
-            // TODO: Ogarnąć tutaj nie tylko inwersje ale także i mutację
             int deliversCount = ParametersManager.DeliveryCoordinates.Count;
             int senderCount = ParametersManager.SenderCoordiantes.Count;
             Solution newSolution = new Solution(senderCount, deliversCount, ParametersManager.CostsList);
 
-            newSolution.Vector = solution.Inversion();
+            // Inwersja
+            int[] vector = solution.Inversion();
+
+            // Mutacja
+            int vectorCount = vector.Length;
+            Random random = new Random();
+            int first = random.Next(0, vectorCount);
+            int second = random.Next(0, vectorCount);
+
+            int a = vector[first];
+            int b = vector[second];
+
+            vector[first] = b;
+            vector[second] = a;
+
+            newSolution.Vector = vector.Clone() as int[];
             newSolution.X = RebulidSolutionByVector(newSolution);
 
             return newSolution;

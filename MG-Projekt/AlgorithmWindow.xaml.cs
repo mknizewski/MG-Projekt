@@ -32,8 +32,6 @@ namespace MG_Projekt
 
         public void Calculate()
         {
-            Random random = new Random();
-            Thread.Sleep(random.Next(2000, 5000));
             _algorithmManager.ParametersManager = _paremetersManager;
             _algorithmManager.CalculatePossibleSolution();
         }

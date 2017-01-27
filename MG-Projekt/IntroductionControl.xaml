@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:MG_Projekt"
              mc:Ignorable="d"
-             d:DesignHeight="550" d:DesignWidth="700" Background="White">
+             d:DesignHeight="850" d:DesignWidth="700" Background="White">
     <Grid>
         <ScrollViewer>
             <StackPanel Orientation="Vertical">
                 <Label FontSize="24" FontFamily="Open Sans" FontWeight="Black">Klasyczny problem transportowy</Label>
-                <Label FontSize="16">- wyznaczenie planu przewozu jednorodnego wyrobu z punktu nadania do puntków odbioru</Label>
+                <Label FontSize="16">- wyznaczenie planu przewozu jednorodnego wyrobu z punktów nadania do puntków odbioru</Label>
                 <Label FontSize="20" FontWeight="Black">Funkcja celu</Label>
                 <Label FontSize="16">- minimalizacja całkowitego kosztu przewozu</Label>
                 <Label FontSize="20" FontWeight="Black">Parametry</Label>
@@ -24,6 +24,9 @@
                 <Label FontSize="18">Gdzie:</Label>
                 <Label FontSize="16">kij - jednostkowy koszt przewozu</Label>
                 <Label FontSize="16">xij - wielkość przewozu na trasie</Label>
+                <Label FontSize="20" FontWeight="Black" Margin="0 15 5 0" HorizontalAlignment="Right">Autorzy:</Label>
+                <Label FontSize="16" HorizontalAlignment="Right" Margin="0 0 5 0">Mateusz Kniżewski</Label>
+                <Label FontSize="16" HorizontalAlignment="Right" Margin="0 0 5 0">Piotr Aleksandrowicz</Label>
             </StackPanel>
         </ScrollViewer>
     </Grid>
