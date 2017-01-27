@@ -2,8 +2,11 @@
 
 Zanim przejdziemy do rozwiązania problemu należy podać takie dane jak:
 - koszt benzyny
-- ilość ciężarówek
 - ilość spalonego paliwa na 100 km
 - współrzędne punktów dystrybucji
+- współrzędne punktów nadawczych
+- początkowa temperatura
+- stopień studzenia temperatury
+- kryterium stopu (ilość iteracji)
 
-Wyniki są prezentowane na wykresie oraz tabeli.
+Wyniki są prezentowane na mapie dostaw (wykresie) oraz tabelach.

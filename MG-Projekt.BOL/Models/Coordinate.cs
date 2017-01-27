@@ -4,11 +4,13 @@
     {
         public int X;
         public int Y;
+        public bool IsSeen;
 
         public Coordinate(int x, int y)
         {
             this.X = x;
             this.Y = y;
+            this.IsSeen = false;
         }
 
         public override string ToString()
