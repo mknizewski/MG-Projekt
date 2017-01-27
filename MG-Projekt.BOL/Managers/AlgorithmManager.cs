@@ -38,21 +38,17 @@ namespace MG_Projekt.BOL.Managers
             for (int i = 0; i < iteration; i++)
             {
                 Random random = new Random();
-                Solution b;
-
-                do
-                {
-                    b = GetRandomSolution();
-                }
-                while (a.Equals(b));
+                Solution b = GetRandomSolution();
 
                 if (!Solutions.Contains(b))
                     Solutions.Add(b);
+                else
+                    continue;
 
                 if (b.TargetFunction() < a.TargetFunction())
-                    SwapSolutions(a, b);
+                    a = SwapSolutions(a, b);
                 else if (random.NextDouble() < Annealing.PropabilityFunction(a, b))
-                    SwapSolutions(a, b);
+                    a = SwapSolutions(a, b);
 
                 Annealing.SetLowerTemperature();
             }
@@ -106,14 +102,17 @@ namespace MG_Projekt.BOL.Managers
             return BestSolution.TargetFunction();
         }
 
-        private void SwapSolutions(Solution a, Solution b)
+        private Solution SwapSolutions(Solution a, Solution b)
         {
             int deliversCount = ParametersManager.DeliveryCoordinates.Count;
             int senderCount = ParametersManager.SenderCoordiantes.Count;
 
-            a = new Solution(senderCount, deliversCount);
+            a = new Solution(senderCount, deliversCount, ParametersManager.CostsList);
             a.C = b.C.Clone() as double[,];
             a.X = b.X.Clone() as double[,];
+            a.Vector = b.Vector.Clone() as int[];
+
+            return a;
         }
 
         public Solution GetRandomSolution()
@@ -122,52 +121,91 @@ namespace MG_Projekt.BOL.Managers
 
             int deliversCount = ParametersManager.DeliveryCoordinates.Count;
             int senderCount = ParametersManager.SenderCoordiantes.Count;
-            Solution solution = new Solution(senderCount, deliversCount);
+            Solution solution = new Solution(senderCount, deliversCount, ParametersManager.CostsList);
+            int i = 0;
 
-            for (int i = 0; i < ParametersManager.CostsList.GetLength(0); i++)
+            do
             {
-                for (int j = 0; j < ParametersManager.CostsList.GetLength(1); j++)
-                {
-                    solution.C[i, j] = ParametersManager.CostsList[i, j].Cost;
-                }
-            }
-
-            for (int i = 0; i < senderCount; i++)
-            {
-                SenderCooridante sender = ParametersManager.SenderCoordiantes[i];
                 Random random = new Random();
-                List<int> servedDeliversIndex;
+                int q = random.Next(0, senderCount * deliversCount);
 
-                do
+                if (!solution.IsSeen[q])
                 {
-                    servedDeliversIndex = new List<int>();
-                    int randomDelivery = random.Next(deliversCount);
-                    DeliveryCoordinate delivery = ParametersManager.DeliveryCoordinates[randomDelivery];
+                    solution.IsSeen[q] = true;
+                    solution.Vector[i] = q;
+                    i++;
 
-                    if (sender.CurrentLimit == 0)
-                        break;
-                    else if (delivery.CurrentRequest == 0)
-                        continue;
+                    double calculatingRow = (q) / (senderCount);
+                    int row = (int)Math.Floor(calculatingRow);
+                    int column = (q) % senderCount;
 
-                    if (delivery.CurrentRequest > sender.CurrentLimit)
-                    {
-                        solution.X[i, randomDelivery] = sender.CurrentLimit;
-                        delivery.CurrentRequest = delivery.CurrentRequest - sender.CurrentLimit;
-                        sender.CurrentLimit = 0;
-                    }
-                    else
-                    {
-                        solution.X[i, randomDelivery] = delivery.CurrentRequest;
-                        sender.CurrentLimit = sender.CurrentLimit - delivery.CurrentRequest;
-                        delivery.CurrentRequest = 0;
-                    }
+                    SenderCooridante senderCoords = ParametersManager.SenderCoordiantes[row];
+                    DeliveryCoordinate deliveryCoords = ParametersManager.DeliveryCoordinates[column];
 
-                    servedDeliversIndex.Add(randomDelivery);
+                    int value = Math.Min(senderCoords.CurrentLimit, deliveryCoords.CurrentRequest);
+
+                    solution.X[row, column] = value;
+                    senderCoords.CurrentLimit = senderCoords.CurrentLimit - value;
+                    deliveryCoords.CurrentRequest = deliveryCoords.CurrentRequest - value;
                 }
-                while (servedDeliversIndex.Count != deliversCount);
             }
+            while (!solution.AllPositionIsSeen());
 
             return solution;
+        }
+
+        private Solution ChangeTwoRandomElements(Solution solution)
+        {
+            int deliversCount = ParametersManager.DeliveryCoordinates.Count;
+            int senderCount = ParametersManager.SenderCoordiantes.Count;
+            Solution newSolution = new Solution(senderCount, deliversCount, ParametersManager.CostsList);
+
+            // Inwersja
+            int[] vector = solution.Inversion();
+
+            // Mutacja
+            int vectorCount = vector.Length;
+            Random random = new Random();
+            int first = random.Next(0, vectorCount);
+            int second = random.Next(0, vectorCount);
+
+            int a = vector[first];
+            int b = vector[second];
+
+            vector[first] = b;
+            vector[second] = a;
+
+            newSolution.Vector = vector.Clone() as int[];
+            newSolution.X = RebulidSolutionByVector(newSolution);
+
+            return newSolution;
+        }
+
+        private double[,] RebulidSolutionByVector(Solution solution)
+        {
+            int deliversCount = ParametersManager.DeliveryCoordinates.Count;
+            int senderCount = ParametersManager.SenderCoordiantes.Count;
+            double[,] x = new double[senderCount, deliversCount];
+
+            ParametersManager.RestoreLimitsAndRequests();
+
+            for (int i = 0; i < solution.Vector.Length; i++)
+            {
+                int q = solution.Vector[i];
+                int row = (int)Math.Floor((double)(q / senderCount));
+                int column = q % senderCount;
+
+                SenderCooridante senderCoords = ParametersManager.SenderCoordiantes[row];
+                DeliveryCoordinate deliveryCoors = ParametersManager.DeliveryCoordinates[column];
+
+                int value = Math.Min(senderCoords.CurrentLimit, deliveryCoors.CurrentRequest);
+                senderCoords.CurrentLimit = senderCoords.CurrentLimit - value;
+                deliveryCoors.CurrentRequest = deliveryCoors.CurrentRequest - value;
+
+                x[row, column] = value;
+            }
+
+            return x;
         }
 
         public void Dispose()

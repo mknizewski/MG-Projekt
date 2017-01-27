@@ -53,8 +53,15 @@ namespace MG_Projekt.BOL.Managers
 
         public void RestoreLimitsAndRequests()
         {
-            SenderCoordiantes.ForEach(x => x.CurrentLimit = x.Limit);
-            DeliveryCoordinates.ForEach(x => x.CurrentRequest = x.Request);
+            SenderCoordiantes.ForEach(x => {
+                x.CurrentLimit = x.Limit;
+                x.IsSeen = false;
+            });
+
+            DeliveryCoordinates.ForEach(x => {
+                x.CurrentRequest = x.Request;
+                x.IsSeen = false;
+            });
         }
 
         public string DisplayFunction()
